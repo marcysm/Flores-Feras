@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Adventure Text — experiência narrativa interativa"
+  >
+
+  <title>Arquivo Artist Valley</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-screen__content">
+      <span class="loading-screen__light"></span>
+
+      <p id="loading-message">
+        INICIALIZANDO ARQUIVO...
+      </p>
+    </div>
+  </div>
+
+  <main id="application" class="application is-hidden">
+    <header class="topbar">
+      <div class="topbar__identity">
+        <span id="connection-light" class="connection-light"></span>
+
+        <div>
+          <p class="topbar__label">
+            IDENTIFICAÇÃO
+          </p>
+
+          <p id="player-code" class="topbar__value">
+            DESCONHECIDA
+          </p>
+        </div>
+      </div>
+
+      <div class="topbar__route">
+        <p class="topbar__label">
+          ROTA
+        </p>
+
+        <p id="route-name" class="topbar__value">
+          NÃO DEFINIDA
+        </p>
+      </div>
+    </header>
+
+    <section class="terminal">
+      <div class="terminal__scanlines" aria-hidden="true"></div>
+
+      <div class="terminal__header">
+        <p id="game-title" class="terminal__archive">
+          ARQUIVO ARTIST VALLEY
+        </p>
+
+        <button
+          id="menu-button"
+          class="terminal__menu-button"
+          type="button"
+          aria-label="Abrir comandos"
+        >
+          COMANDOS
+        </button>
+      </div>
+
+      <article id="scene-container" class="scene-container">
+        <p class="system-line">
+          Aguardando conteúdo...
+        </p>
+      </article>
+
+      <div
+        id="system-message"
+        class="system-message"
+        aria-live="polite"
+      ></div>
+
+      <form id="command-form" class="command-form">
+        <label class="command-form__label" for="command-input">
+          O QUE VOCÊ FAZ?
+        </label>
+
+        <div class="command-form__row">
+          <span class="command-form__prompt" aria-hidden="true">
+            &gt;
+          </span>
+
+          <input
+            id="command-input"
+            class="command-form__input"
+            type="text"
+            name="command"
+            maxlength="300"
+            autocomplete="off"
+            spellcheck="false"
+            placeholder="DIGITE UMA AÇÃO..."
+          >
+
+          <button
+            id="send-button"
+            class="command-form__send"
+            type="submit"
+          >
+            ENVIAR
+          </button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <div
+    id="command-modal"
+    class="modal is-hidden"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="command-modal-title"
+  >
+    <div class="modal__backdrop" data-close-modal></div>
+
+    <section class="modal__panel">
+      <div class="modal__header">
+        <div>
+          <p class="modal__eyebrow">
+            TERMINAL DE CONSULTA
+          </p>
+
+          <h2 id="command-modal-title">
+            Comandos
+          </h2>
+        </div>
+
+        <button
+          class="modal__close"
+          type="button"
+          data-close-modal
+          aria-label="Fechar"
+        >
+          ×
+        </button>
+      </div>
+
+      <div class="command-list">
+        <button type="button" data-command="ajuda">
+          <strong>AJUDA</strong>
+          <span>Consulta orientações da cena.</span>
+        </button>
+
+        <button type="button" data-command="repetir">
+          <strong>REPETIR</strong>
+          <span>Mostra novamente o conteúdo atual.</span>
+        </button>
+
+        <button type="button" data-command="inventario">
+          <strong>INVENTÁRIO</strong>
+          <span>Consulta os objetos da partida.</span>
+        </button>
+
+        <button type="button" data-command="historico">
+          <strong>HISTÓRICO</strong>
+          <span>Mostra os acontecimentos recentes.</span>
+        </button>
+      </div>
+    </section>
+  </div>
+
+  <template id="text-block-template">
+    <p class="scene-block scene-block--text"></p>
+  </template>
+
+  <template id="image-block-template">
+    <figure class="scene-block scene-block--image">
+      <img src="" alt="">
+    </figure>
+  </template>
+
+  <template id="ascii-block-template">
+    <pre class="scene-block scene-block--ascii"></pre>
+  </template>
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+  ></script>
+
+  <script src="config.js"></script>
+
+  <script src="app.js"></script>
+</body>
+</html>
