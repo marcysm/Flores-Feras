@@ -1,0 +1,5487 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  >
+
+  <meta
+    name="robots"
+    content="noindex, nofollow"
+  >
+
+  <meta name="theme-color" content="#070707">
+
+  <title>Painel Narrativo Definitivo</title>
+
+  <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+  <!-- =====================================================
+       CARREGAMENTO INICIAL
+       ===================================================== -->
+
+  <div id="admin-loading" class="admin-loading">
+    <span class="admin-loading__light"></span>
+
+    <span id="admin-loading-message">
+      VERIFICANDO AUTORIZAÇÃO...
+    </span>
+  </div>
+
+
+  <!-- =====================================================
+       APLICAÇÃO
+       ===================================================== -->
+
+  <main
+    id="admin-application"
+    class="admin-application is-hidden"
+  >
+    <!-- ===================================================
+         CABEÇALHO
+         =================================================== -->
+
+    <header class="admin-header">
+      <div>
+        <p class="admin-header__eyebrow">
+          ARQUIVO ARTIST VALLEY
+        </p>
+
+        <h1>Painel Narrativo</h1>
+      </div>
+
+      <div class="admin-header__actions">
+        <a
+          class="button button--secondary"
+          href="index.html"
+          target="_blank"
+          rel="noopener"
+        >
+          ABRIR JOGO
+        </a>
+
+        <button
+          id="logout-button"
+          class="button button--secondary"
+          type="button"
+        >
+          SAIR
+        </button>
+      </div>
+    </header>
+
+
+    <!-- ===================================================
+         IDENTIDADE
+         =================================================== -->
+
+    <section class="admin-identity">
+      <div>
+        <span class="admin-identity__status"></span>
+
+        <div>
+          <p class="admin-identity__label">
+            ADMINISTRADOR
+          </p>
+
+          <p id="admin-name" class="admin-identity__value">
+            Carregando...
+          </p>
+        </div>
+      </div>
+
+      <p id="admin-email" class="admin-identity__email">
+        Carregando...
+      </p>
+    </section>
+
+
+    <!-- ===================================================
+         NAVEGAÇÃO
+         =================================================== -->
+
+    <nav class="admin-navigation" aria-label="Seções do painel">
+      <button class="admin-navigation__item is-active" type="button" data-section="scenes">
+        CENAS
+      </button>
+
+      <button class="admin-navigation__item" type="button" data-section="routes">
+        ROTAS
+      </button>
+
+      <button class="admin-navigation__item" type="button" data-section="responses">
+        CAMINHOS
+      </button>
+
+      <button class="admin-navigation__item" type="button" data-section="items">
+        ITENS
+      </button>
+
+      <button class="admin-navigation__item" type="button" data-section="flags">
+        FLAGS
+      </button>
+
+      <button class="admin-navigation__item" type="button" data-section="secrets">
+        SEGREDOS
+      </button>
+
+      <button class="admin-navigation__item" type="button" data-section="map">
+        MAPA
+      </button>
+
+      <button class="admin-navigation__item" type="button" data-section="progress">
+        PROGRESSO
+      </button>
+
+      <button class="admin-navigation__item" type="button" data-section="unrecognized">
+        NÃO RECONHECIDOS
+      </button>
+
+      <button class="admin-navigation__item" type="button" data-section="history">
+        HISTÓRICO
+      </button>
+
+      <button class="admin-navigation__item" type="button" data-section="settings">
+        CONFIGURAÇÕES
+      </button>
+
+      <button class="admin-navigation__item" type="button" data-section="validator">
+        VALIDADOR
+      </button>
+
+      <button class="admin-navigation__item" type="button" data-section="testing">
+        TESTE
+      </button>
+    </nav>
+
+
+    <!-- ===================================================
+         CONTEÚDO: CENAS
+         =================================================== -->
+
+    <section id="scenes-section" class="admin-section">
+      <div class="section-heading">
+        <div>
+          <p class="section-heading__eyebrow">
+            CONSTRUÇÃO NARRATIVA
+          </p>
+
+          <h2>Cenas</h2>
+
+          <p>
+            Crie e organize os acontecimentos que formam
+            os caminhos da história.
+          </p>
+        </div>
+
+        <button
+          id="new-scene-button"
+          class="button button--primary"
+          type="button"
+        >
+          + NOVA CENA
+        </button>
+      </div>
+
+
+      <!-- =================================================
+           RESUMO
+           ================================================= -->
+
+      <div class="scene-statistics">
+        <article>
+          <span>TOTAL</span>
+          <strong id="total-scenes">0</strong>
+        </article>
+
+        <article>
+          <span>ATIVAS</span>
+          <strong id="active-scenes">0</strong>
+        </article>
+
+        <article>
+          <span>DESATIVADAS</span>
+          <strong id="inactive-scenes">0</strong>
+        </article>
+
+        <article>
+          <span>FINAIS</span>
+          <strong id="ending-scenes">0</strong>
+        </article>
+      </div>
+
+
+      <!-- =================================================
+           FILTROS
+           ================================================= -->
+
+      <section class="scene-filters">
+        <div class="field field--search">
+          <label for="scene-search">
+            PESQUISAR
+          </label>
+
+          <input
+            id="scene-search"
+            type="search"
+            placeholder="Título, identificador ou descrição..."
+            autocomplete="off"
+          >
+        </div>
+
+        <div class="field">
+          <label for="route-filter">
+            ROTA
+          </label>
+
+          <select id="route-filter">
+            <option value="">
+              Todas as rotas
+            </option>
+
+            <option value="none">
+              Sem rota específica
+            </option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="status-filter">
+            ESTADO
+          </label>
+
+          <select id="status-filter">
+            <option value="">
+              Todos
+            </option>
+
+            <option value="active">
+              Ativas
+            </option>
+
+            <option value="inactive">
+              Desativadas
+            </option>
+
+            <option value="ending">
+              Finais
+            </option>
+          </select>
+        </div>
+      </section>
+      
+      <!-- =================================================
+           MENSAGEM DA LISTA
+           ================================================= -->
+
+      <p
+        id="scene-list-message"
+        class="scene-list-message"
+        aria-live="polite"
+      ></p>
+
+
+      <!-- =================================================
+           LISTA
+           ================================================= -->
+
+      <div id="scene-list" class="scene-list">
+        <!-- Criada pelo JavaScript. -->
+      </div>
+    </section>
+
+    
+<!-- =====================================================
+     CONTEÚDO: CAMINHOS E RESPOSTAS
+     ===================================================== -->
+
+<section
+  id="responses-section"
+  class="admin-section is-hidden"
+>
+  <div class="section-heading">
+    <div>
+      <p class="section-heading__eyebrow">
+        INTERPRETAÇÃO DE COMANDOS
+      </p>
+
+      <h2>Caminhos</h2>
+
+      <p>
+        Defina quais comandos o jogador pode usar,
+        quais respostas serão mostradas e para onde
+        cada ação levará.
+      </p>
+    </div>
+
+    <button
+      id="new-response-button"
+      class="button button--primary"
+      type="button"
+    >
+      + NOVO CAMINHO
+    </button>
+  </div>
+
+
+  <div class="scene-statistics">
+    <article>
+      <span>TOTAL</span>
+
+      <strong id="total-responses">
+        0
+      </strong>
+    </article>
+
+    <article>
+      <span>ATIVOS</span>
+
+      <strong id="active-responses">
+        0
+      </strong>
+    </article>
+
+    <article>
+      <span>DESATIVADOS</span>
+
+      <strong id="inactive-responses">
+        0
+      </strong>
+    </article>
+
+    <article>
+      <span>COM DESTINO</span>
+
+      <strong id="destination-responses">
+        0
+      </strong>
+    </article>
+  </div>
+
+
+  <section class="scene-filters response-filters">
+    <div class="field field--search">
+      <label for="response-search">
+        PESQUISAR
+      </label>
+
+      <input
+        id="response-search"
+        type="search"
+        placeholder="Identificador, palavra ou resposta..."
+        autocomplete="off"
+      >
+    </div>
+
+    <div class="field">
+      <label for="response-scene-filter">
+        CENA DE ORIGEM
+      </label>
+
+      <select id="response-scene-filter">
+        <option value="">
+          Todas as cenas
+        </option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="response-mode-filter">
+        RECONHECIMENTO
+      </label>
+
+      <select id="response-mode-filter">
+        <option value="">
+          Todos
+        </option>
+
+        <option value="exact">
+          Frase exata
+        </option>
+
+        <option value="keywords">
+          Palavras combinadas
+        </option>
+
+        <option value="any_keyword">
+          Qualquer palavra
+        </option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="response-status-filter">
+        ESTADO
+      </label>
+
+      <select id="response-status-filter">
+        <option value="">
+          Todos
+        </option>
+
+        <option value="active">
+          Ativos
+        </option>
+
+        <option value="inactive">
+          Desativados
+        </option>
+
+        <option value="destination">
+          Com destino
+        </option>
+      </select>
+    </div>
+  </section>
+
+
+  <p
+    id="response-list-message"
+    class="scene-list-message"
+    aria-live="polite"
+  ></p>
+
+
+  <div
+    id="response-list"
+    class="response-list"
+  ></div>
+</section>
+
+
+<!-- =====================================================
+     CONTEÚDO: ROTAS
+     ===================================================== -->
+
+<section
+  id="routes-section"
+  class="admin-section is-hidden"
+>
+  <div class="section-heading">
+    <div>
+      <p class="section-heading__eyebrow">
+        CAMINHOS NARRATIVOS
+      </p>
+
+      <h2>Rotas</h2>
+
+      <p>
+        Configure os caminhos principais e secretos,
+        as cores da interface e as cenas iniciais.
+      </p>
+    </div>
+
+    <button
+      id="new-route-button"
+      class="button button--primary"
+      type="button"
+    >
+      + NOVA ROTA
+    </button>
+  </div>
+
+
+  <div class="scene-statistics">
+    <article>
+      <span>TOTAL</span>
+
+      <strong id="total-routes">
+        0
+      </strong>
+    </article>
+
+    <article>
+      <span>ATIVAS</span>
+
+      <strong id="active-routes">
+        0
+      </strong>
+    </article>
+
+    <article>
+      <span>SECRETAS</span>
+
+      <strong id="secret-routes">
+        0
+      </strong>
+    </article>
+
+    <article>
+      <span>INICIAIS</span>
+
+      <strong id="initial-routes">
+        0
+      </strong>
+    </article>
+  </div>
+
+
+  <section class="scene-filters route-filters">
+    <div class="field field--search">
+      <label for="route-search">
+        PESQUISAR
+      </label>
+
+      <input
+        id="route-search"
+        type="search"
+        placeholder="Nome, código ou descrição..."
+        autocomplete="off"
+      >
+    </div>
+
+    <div class="field">
+      <label for="route-status-filter">
+        ESTADO
+      </label>
+
+      <select id="route-status-filter">
+        <option value="">
+          Todas
+        </option>
+
+        <option value="active">
+          Ativas
+        </option>
+
+        <option value="inactive">
+          Desativadas
+        </option>
+
+        <option value="secret">
+          Secretas
+        </option>
+
+        <option value="initial">
+          Disponíveis inicialmente
+        </option>
+      </select>
+    </div>
+  </section>
+
+
+  <p
+    id="route-list-message"
+    class="scene-list-message"
+    aria-live="polite"
+  ></p>
+
+
+  <div
+    id="route-list"
+    class="route-list"
+  ></div>
+</section>
+
+    <!-- =====================================================
+     CONTEÚDO: ITENS
+     ===================================================== -->
+
+<section
+  id="items-section"
+  class="admin-section is-hidden"
+>
+  <div class="section-heading">
+    <div>
+      <p class="section-heading__eyebrow">
+        OBJETOS E INVENTÁRIO
+      </p>
+
+      <h2>Itens</h2>
+
+      <p>
+        Cadastre chaves, documentos, pistas, ferramentas
+        e outros objetos que podem ser encontrados durante
+        a história.
+      </p>
+    </div>
+
+    <button
+      id="new-item-button"
+      class="button button--primary"
+      type="button"
+    >
+      + NOVO ITEM
+    </button>
+  </div>
+
+
+  <!-- =================================================
+       ESTATÍSTICAS
+       ================================================= -->
+
+  <div class="scene-statistics">
+    <article>
+      <span>TOTAL</span>
+
+      <strong id="total-items">
+        0
+      </strong>
+    </article>
+
+    <article>
+      <span>ATIVOS</span>
+
+      <strong id="active-items">
+        0
+      </strong>
+    </article>
+
+    <article>
+      <span>SECRETOS</span>
+
+      <strong id="secret-items">
+        0
+      </strong>
+    </article>
+
+    <article>
+      <span>CONSUMÍVEIS</span>
+
+      <strong id="consumable-items">
+        0
+      </strong>
+    </article>
+  </div>
+
+
+  <!-- =================================================
+       FILTROS
+       ================================================= -->
+
+  <section class="scene-filters item-filters">
+    <div class="field field--search">
+      <label for="item-search">
+        PESQUISAR
+      </label>
+
+      <input
+        id="item-search"
+        type="search"
+        placeholder="Nome, identificador ou descrição..."
+        autocomplete="off"
+      >
+    </div>
+
+    <div class="field">
+      <label for="item-type-filter">
+        TIPO
+      </label>
+
+      <select id="item-type-filter">
+        <option value="">
+          Todos
+        </option>
+
+        <option value="general">
+          Geral
+        </option>
+
+        <option value="key">
+          Chave
+        </option>
+
+        <option value="document">
+          Documento
+        </option>
+
+        <option value="tool">
+          Ferramenta
+        </option>
+
+        <option value="weapon">
+          Arma
+        </option>
+
+        <option value="clue">
+          Pista
+        </option>
+
+        <option value="consumable">
+          Consumível
+        </option>
+
+        <option value="quest">
+          Item de missão
+        </option>
+
+        <option value="secret">
+          Secreto
+        </option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="item-status-filter">
+        ESTADO
+      </label>
+
+      <select id="item-status-filter">
+        <option value="">
+          Todos
+        </option>
+
+        <option value="active">
+          Ativos
+        </option>
+
+        <option value="inactive">
+          Desativados
+        </option>
+
+        <option value="secret">
+          Secretos
+        </option>
+
+        <option value="consumable">
+          Consumíveis
+        </option>
+
+        <option value="stackable">
+          Empilháveis
+        </option>
+      </select>
+    </div>
+  </section>
+
+
+  <!-- =================================================
+       MENSAGEM DA LISTA
+       ================================================= -->
+
+  <p
+    id="item-list-message"
+    class="scene-list-message"
+    aria-live="polite"
+  ></p>
+
+
+  <!-- =================================================
+       LISTA DE ITENS
+       ================================================= -->
+
+  <div
+    id="item-list"
+    class="item-list"
+  ></div>
+</section>
+
+    <!-- =====================================================
+         CONTEÚDO: FLAGS
+         ===================================================== -->
+
+    <section id="flags-section" class="admin-section is-hidden">
+      <div class="section-heading">
+        <div>
+          <p class="section-heading__eyebrow">ESTADO DA HISTÓRIA</p>
+          <h2>Flags</h2>
+          <p>
+            Cadastre variáveis narrativas usadas para lembrar escolhas,
+            liberar Caminhos e alterar consequências.
+          </p>
+        </div>
+
+        <button id="new-flag-button" class="button button--primary" type="button">
+          + NOVA FLAG
+        </button>
+      </div>
+
+      <div class="scene-statistics">
+        <article><span>TOTAL</span><strong id="total-flags">0</strong></article>
+        <article><span>ATIVAS</span><strong id="active-flags">0</strong></article>
+        <article><span>BOOLEANAS</span><strong id="boolean-flags">0</strong></article>
+        <article><span>NUMÉRICAS</span><strong id="numeric-flags">0</strong></article>
+      </div>
+
+      <section class="scene-filters">
+        <div class="field field--search">
+          <label for="flag-search">PESQUISAR</label>
+          <input id="flag-search" type="search" placeholder="Nome, identificador ou descrição..." autocomplete="off">
+        </div>
+
+        <div class="field">
+          <label for="flag-type-filter">TIPO</label>
+          <select id="flag-type-filter">
+            <option value="">Todos</option>
+            <option value="boolean">Verdadeiro / falso</option>
+            <option value="number">Número</option>
+            <option value="text">Texto</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="flag-status-filter">ESTADO</label>
+          <select id="flag-status-filter">
+            <option value="">Todos</option>
+            <option value="active">Ativas</option>
+            <option value="inactive">Desativadas</option>
+          </select>
+        </div>
+      </section>
+
+      <p id="flag-list-message" class="scene-list-message" aria-live="polite"></p>
+      <div id="flag-list" class="entity-list"></div>
+    </section>
+
+
+    <!-- =====================================================
+         CONTEÚDO: SEGREDOS E CÓDIGOS
+         ===================================================== -->
+
+    <section id="secrets-section" class="admin-section is-hidden">
+      <div class="section-heading">
+        <div>
+          <p class="section-heading__eyebrow">CONTEÚDO OCULTO</p>
+          <h2>Segredos</h2>
+          <p>
+            Organize descobertas narrativas e Códigos Secretos que
+            executam consequências especiais no Runtime.
+          </p>
+        </div>
+
+        <div class="section-heading__actions">
+          <button id="new-secret-button" class="button button--primary" type="button">
+            + NOVO SEGREDO
+          </button>
+
+          <button id="new-secret-code-button" class="button button--secondary" type="button">
+            + NOVO CÓDIGO
+          </button>
+        </div>
+      </div>
+
+      <div class="scene-statistics">
+        <article><span>SEGREDOS</span><strong id="total-secrets">0</strong></article>
+        <article><span>ATIVOS</span><strong id="active-secrets">0</strong></article>
+        <article><span>CÓDIGOS</span><strong id="total-secret-codes">0</strong></article>
+        <article><span>USO ÚNICO</span><strong id="single-use-secret-codes">0</strong></article>
+      </div>
+
+      <section class="scene-filters">
+        <div class="field field--search">
+          <label for="secret-search">PESQUISAR</label>
+          <input id="secret-search" type="search" placeholder="Nome, código, identificador ou descrição..." autocomplete="off">
+        </div>
+
+        <div class="field">
+          <label for="secret-kind-filter">CATEGORIA</label>
+          <select id="secret-kind-filter">
+            <option value="">Tudo</option>
+            <option value="secret">Segredos</option>
+            <option value="code">Códigos Secretos</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="secret-status-filter">ESTADO</label>
+          <select id="secret-status-filter">
+            <option value="">Todos</option>
+            <option value="active">Ativos</option>
+            <option value="inactive">Desativados</option>
+            <option value="single_use">Uso único</option>
+          </select>
+        </div>
+      </section>
+
+      <p id="secret-list-message" class="scene-list-message" aria-live="polite"></p>
+      <div id="secret-list" class="entity-list"></div>
+    </section>
+
+
+    <!-- =====================================================
+         CONTEÚDO: MAPA
+         ===================================================== -->
+
+    <section id="map-section" class="admin-section is-hidden">
+      <div class="section-heading">
+        <div>
+          <p class="section-heading__eyebrow">ESTRUTURA ESPACIAL</p>
+          <h2>Mapa</h2>
+          <p>
+            Cadastre locais, posições visuais e conexões que podem ser
+            descobertas ou liberadas durante a história.
+          </p>
+        </div>
+
+        <div class="section-heading__actions">
+          <button id="new-map-location-button" class="button button--primary" type="button">
+            + NOVO LOCAL
+          </button>
+
+          <button id="new-map-connection-button" class="button button--secondary" type="button">
+            + NOVA CONEXÃO
+          </button>
+        </div>
+      </div>
+
+      <div class="scene-statistics">
+        <article><span>LOCAIS</span><strong id="total-map-locations">0</strong></article>
+        <article><span>ATIVOS</span><strong id="active-map-locations">0</strong></article>
+        <article><span>SECRETOS</span><strong id="secret-map-locations">0</strong></article>
+        <article><span>CONEXÕES</span><strong id="total-map-connections">0</strong></article>
+      </div>
+
+      <section class="scene-filters">
+        <div class="field field--search">
+          <label for="map-search">PESQUISAR</label>
+          <input id="map-search" type="search" placeholder="Local, conexão ou descrição..." autocomplete="off">
+        </div>
+
+        <div class="field">
+          <label for="map-view-filter">EXIBIÇÃO</label>
+          <select id="map-view-filter">
+            <option value="">Tudo</option>
+            <option value="locations">Locais</option>
+            <option value="connections">Conexões</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="map-status-filter">ESTADO</label>
+          <select id="map-status-filter">
+            <option value="">Todos</option>
+            <option value="active">Ativos</option>
+            <option value="inactive">Desativados</option>
+            <option value="secret">Secretos</option>
+          </select>
+        </div>
+      </section>
+
+      <div id="map-editor-canvas" class="map-editor-canvas" aria-label="Visualização administrativa do mapa">
+        <p id="map-editor-empty">Os locais cadastrados aparecerão aqui.</p>
+      </div>
+
+      <p id="map-list-message" class="scene-list-message" aria-live="polite"></p>
+      <div id="map-list" class="entity-list"></div>
+    </section>
+
+
+    <!-- =====================================================
+         CONTEÚDO: PROGRESSO DA HISTÓRIA
+         ===================================================== -->
+
+    <section id="progress-section" class="admin-section is-hidden">
+      <div class="section-heading">
+        <div>
+          <p class="section-heading__eyebrow">ACOMPANHAMENTO TÉCNICO</p>
+          <h2>Progresso</h2>
+          <p>
+            Consulte onde cada jogador está na história. Esta área não
+            cria slots nem pausas; ela apenas mostra o progresso automático.
+          </p>
+        </div>
+
+        <button id="refresh-progress-button" class="button button--secondary" type="button">
+          ATUALIZAR
+        </button>
+      </div>
+
+      <div class="scene-statistics">
+        <article><span>JOGADORES</span><strong id="total-player-profiles">0</strong></article>
+        <article><span>PROGRESSOS</span><strong id="total-progress-records">0</strong></article>
+        <article><span>ATIVOS</span><strong id="active-progress-records">0</strong></article>
+        <article><span>TESTES</span><strong id="test-progress-records">0</strong></article>
+      </div>
+
+      <section class="scene-filters">
+        <div class="field field--search">
+          <label for="progress-search">PESQUISAR</label>
+          <input id="progress-search" type="search" placeholder="Código do jogador, Cena ou Rota..." autocomplete="off">
+        </div>
+
+        <div class="field">
+          <label for="progress-route-filter">ROTA</label>
+          <select id="progress-route-filter">
+            <option value="">Todas</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="progress-type-filter">TIPO</label>
+          <select id="progress-type-filter">
+            <option value="">Todos</option>
+            <option value="player">Jogadores</option>
+            <option value="test">Modo de teste</option>
+          </select>
+        </div>
+      </section>
+
+      <p id="progress-list-message" class="scene-list-message" aria-live="polite"></p>
+      <div id="progress-list" class="entity-list"></div>
+    </section>
+
+
+    <!-- =====================================================
+         CONTEÚDO: COMANDOS NÃO RECONHECIDOS
+         ===================================================== -->
+
+    <section id="unrecognized-section" class="admin-section is-hidden">
+      <div class="section-heading">
+        <div>
+          <p class="section-heading__eyebrow">APRENDIZADO NARRATIVO</p>
+          <h2>Não reconhecidos</h2>
+          <p>
+            Revise comandos que os jogadores tentaram usar e transforme
+            os mais importantes em novos Caminhos.
+          </p>
+        </div>
+
+        <button id="refresh-unrecognized-button" class="button button--secondary" type="button">
+          ATUALIZAR
+        </button>
+      </div>
+
+      <div class="scene-statistics">
+        <article><span>PENDENTES</span><strong id="pending-unrecognized">0</strong></article>
+        <article><span>RESOLVIDOS</span><strong id="resolved-unrecognized">0</strong></article>
+        <article><span>CONVERTIDOS</span><strong id="converted-unrecognized">0</strong></article>
+        <article><span>IGNORADOS</span><strong id="ignored-unrecognized">0</strong></article>
+      </div>
+
+      <section class="scene-filters">
+        <div class="field field--search">
+          <label for="unrecognized-search">PESQUISAR</label>
+          <input id="unrecognized-search" type="search" placeholder="Comando original ou normalizado..." autocomplete="off">
+        </div>
+
+        <div class="field">
+          <label for="unrecognized-status-filter">ESTADO</label>
+          <select id="unrecognized-status-filter">
+            <option value="">Todos</option>
+            <option value="pending">Pendentes</option>
+            <option value="resolved">Resolvidos</option>
+            <option value="converted">Convertidos</option>
+            <option value="ignored">Ignorados</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="unrecognized-scene-filter">CENA</label>
+          <select id="unrecognized-scene-filter">
+            <option value="">Todas</option>
+          </select>
+        </div>
+      </section>
+
+      <p id="unrecognized-list-message" class="scene-list-message" aria-live="polite"></p>
+      <div id="unrecognized-list" class="entity-list"></div>
+    </section>
+
+
+    <!-- =====================================================
+         CONTEÚDO: HISTÓRICO
+         ===================================================== -->
+
+    <section id="history-section" class="admin-section is-hidden">
+      <div class="section-heading">
+        <div>
+          <p class="section-heading__eyebrow">REGISTRO DO RUNTIME</p>
+          <h2>Histórico</h2>
+          <p>
+            Consulte ações, respostas, mudanças de Cena, Itens, Flags,
+            Rotas, Segredos, Mapa e erros registrados pelo Runtime.
+          </p>
+        </div>
+
+        <button id="refresh-history-button" class="button button--secondary" type="button">
+          ATUALIZAR
+        </button>
+      </div>
+
+      <section class="scene-filters">
+        <div class="field field--search">
+          <label for="history-search">PESQUISAR</label>
+          <input id="history-search" type="search" placeholder="Código do jogador, comando ou texto..." autocomplete="off">
+        </div>
+
+        <div class="field">
+          <label for="history-type-filter">TIPO</label>
+          <select id="history-type-filter">
+            <option value="">Todos</option>
+            <option value="system">Sistema</option>
+            <option value="scene">Cena</option>
+            <option value="action">Ação</option>
+            <option value="response">Resposta</option>
+            <option value="item">Item</option>
+            <option value="flag">Flag</option>
+            <option value="route">Rota</option>
+            <option value="secret">Segredo</option>
+            <option value="map">Mapa</option>
+            <option value="error">Erro</option>
+            <option value="admin">Administrativo</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="history-period-filter">PERÍODO</label>
+          <select id="history-period-filter">
+            <option value="">Tudo</option>
+            <option value="today">Hoje</option>
+            <option value="7days">Últimos 7 dias</option>
+            <option value="30days">Últimos 30 dias</option>
+          </select>
+        </div>
+      </section>
+
+      <p id="history-list-message" class="scene-list-message" aria-live="polite"></p>
+      <div id="history-list" class="history-list"></div>
+    </section>
+
+
+    <!-- =====================================================
+         CONTEÚDO: CONFIGURAÇÕES
+         ===================================================== -->
+
+    <section id="settings-section" class="admin-section is-hidden">
+      <div class="section-heading">
+        <div>
+          <p class="section-heading__eyebrow">COMPORTAMENTO GERAL</p>
+          <h2>Configurações</h2>
+          <p>
+            Defina textos gerais, limites e comportamentos usados quando
+            uma Cena não possui uma configuração própria.
+          </p>
+        </div>
+      </div>
+
+      <form id="settings-form" class="settings-form">
+        <fieldset class="form-group">
+          <legend>Mensagens gerais</legend>
+
+          <div class="field">
+            <label for="settings-default-fallback">RESPOSTA NÃO RECONHECIDA</label>
+            <textarea id="settings-default-fallback" rows="3" maxlength="1000"></textarea>
+          </div>
+
+          <div class="field">
+            <label for="settings-default-help">AJUDA PADRÃO</label>
+            <textarea id="settings-default-help" rows="3" maxlength="1000"></textarea>
+          </div>
+
+          <div class="field">
+            <label for="settings-inventory-empty">INVENTÁRIO VAZIO</label>
+            <input id="settings-inventory-empty" type="text" maxlength="500">
+          </div>
+
+          <div class="field">
+            <label for="settings-map-empty">MAPA INDISPONÍVEL</label>
+            <input id="settings-map-empty" type="text" maxlength="500">
+          </div>
+        </fieldset>
+
+        <fieldset class="form-group">
+          <legend>Limites e comportamento</legend>
+
+          <div class="form-grid form-grid--two">
+            <div class="field">
+              <label for="settings-max-input-length">LIMITE DO COMANDO</label>
+              <input id="settings-max-input-length" type="number" min="1" max="2000">
+            </div>
+
+            <div class="field">
+              <label for="settings-history-limit">ITENS DO HISTÓRICO AO JOGADOR</label>
+              <input id="settings-history-limit" type="number" min="1" max="200">
+            </div>
+          </div>
+
+          <div class="toggle-grid">
+            <label class="toggle-option">
+              <input id="settings-enable-inventory" type="checkbox">
+              <span class="toggle-option__control"></span>
+              <span><strong>INVENTÁRIO ATIVO</strong><small>Permite o comando Inventário.</small></span>
+            </label>
+
+            <label class="toggle-option">
+              <input id="settings-enable-history" type="checkbox">
+              <span class="toggle-option__control"></span>
+              <span><strong>HISTÓRICO ATIVO</strong><small>Permite o comando Histórico.</small></span>
+            </label>
+
+            <label class="toggle-option">
+              <input id="settings-enable-map" type="checkbox">
+              <span class="toggle-option__control"></span>
+              <span><strong>MAPA ATIVO</strong><small>Permite o comando Mapa.</small></span>
+            </label>
+
+            <label class="toggle-option">
+              <input id="settings-log-unrecognized" type="checkbox">
+              <span class="toggle-option__control"></span>
+              <span><strong>REGISTRAR NÃO RECONHECIDOS</strong><small>Salva tentativas para revisão.</small></span>
+            </label>
+          </div>
+        </fieldset>
+
+        <p id="settings-form-message" class="form-message" aria-live="polite"></p>
+
+        <footer class="form-actions">
+          <button id="reload-settings-button" class="button button--secondary" type="button">
+            RECARREGAR
+          </button>
+
+          <button id="save-settings-button" class="button button--primary" type="submit">
+            SALVAR CONFIGURAÇÕES
+          </button>
+        </footer>
+      </form>
+    </section>
+
+
+    <!-- =====================================================
+         CONTEÚDO: VALIDADOR
+         ===================================================== -->
+
+    <section id="validator-section" class="admin-section is-hidden">
+      <div class="section-heading">
+        <div>
+          <p class="section-heading__eyebrow">AUDITORIA DA HISTÓRIA</p>
+          <h2>Validador</h2>
+          <p>
+            Procure Cenas sem conteúdo, destinos quebrados, Rotas sem
+            início, referências inválidas e outros problemas estruturais.
+          </p>
+        </div>
+
+        <button id="run-validator-button" class="button button--primary" type="button">
+          EXECUTAR VALIDAÇÃO
+        </button>
+      </div>
+
+      <div class="scene-statistics">
+        <article><span>ERROS</span><strong id="validator-errors">0</strong></article>
+        <article><span>AVISOS</span><strong id="validator-warnings">0</strong></article>
+        <article><span>INFORMAÇÕES</span><strong id="validator-info">0</strong></article>
+        <article><span>ÚLTIMA EXECUÇÃO</span><strong id="validator-last-run">—</strong></article>
+      </div>
+
+      <p id="validator-message" class="scene-list-message" aria-live="polite"></p>
+      <div id="validator-results" class="validator-results">
+        <div class="scene-list__empty">
+          Execute a validação para analisar a estrutura atual.
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         CONTEÚDO: MODO DE TESTE
+         ===================================================== -->
+
+    <section id="testing-section" class="admin-section is-hidden">
+      <div class="section-heading">
+        <div>
+          <p class="section-heading__eyebrow">SIMULAÇÃO CONTROLADA</p>
+          <h2>Modo de teste</h2>
+          <p>
+            Inicie uma simulação administrativa isolada, envie comandos
+            e inspecione o Runtime sem alterar o progresso dos jogadores.
+          </p>
+        </div>
+
+        <div class="section-heading__actions">
+          <button id="new-test-session-button" class="button button--primary" type="button">
+            NOVO TESTE
+          </button>
+
+          <button id="reset-test-session-button" class="button button--secondary" type="button" disabled>
+            REINICIAR TESTE
+          </button>
+        </div>
+      </div>
+
+      <div class="test-workspace">
+        <aside class="test-workspace__sidebar">
+          <div class="field">
+            <label for="test-start-route">ROTA INICIAL</label>
+            <select id="test-start-route">
+              <option value="">Rota padrão</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="test-start-scene">CENA INICIAL</label>
+            <select id="test-start-scene">
+              <option value="">Cena inicial automática</option>
+            </select>
+          </div>
+
+          <div class="test-runtime-summary">
+            <p><span>SESSÃO</span><strong id="test-session-id">Nenhuma</strong></p>
+            <p><span>CENA</span><strong id="test-current-scene">—</strong></p>
+            <p><span>ROTA</span><strong id="test-current-route">—</strong></p>
+            <p><span>COMANDOS</span><strong id="test-command-count">0</strong></p>
+          </div>
+        </aside>
+
+        <div class="test-workspace__main">
+          <article id="test-scene-preview" class="test-scene-preview">
+            <p>Nenhum teste foi iniciado.</p>
+          </article>
+
+          <div id="test-response-output" class="test-response-output" aria-live="polite"></div>
+
+          <form id="test-command-form" class="test-command-form">
+            <label for="test-command-input">COMANDO DE TESTE</label>
+
+            <div>
+              <input id="test-command-input" type="text" maxlength="300" autocomplete="off" placeholder="Digite como jogador..." disabled>
+              <button id="send-test-command-button" class="button button--primary" type="submit" disabled>
+                ENVIAR
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="test-inspector">
+        <section>
+          <h3>Inventário</h3>
+          <div id="test-inventory-inspector"></div>
+        </section>
+
+        <section>
+          <h3>Flags</h3>
+          <div id="test-flags-inspector"></div>
+        </section>
+
+        <section>
+          <h3>Mapa</h3>
+          <div id="test-map-inspector"></div>
+        </section>
+
+        <section>
+          <h3>Últimos eventos</h3>
+          <div id="test-history-inspector"></div>
+        </section>
+      </div>
+
+      <p id="test-mode-message" class="form-message" aria-live="polite"></p>
+    </section>
+  </main>
+
+
+  <!-- =====================================================
+       MODAL DE CENA
+       ===================================================== -->
+
+  <div
+    id="scene-modal"
+    class="modal is-hidden"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="scene-modal-title"
+  >
+    <div class="modal__backdrop" data-close-scene-modal></div>
+
+    <section class="modal__panel modal__panel--large">
+      <header class="modal__header">
+        <div>
+          <p class="modal__eyebrow">
+            EDITOR NARRATIVO
+          </p>
+
+          <h2 id="scene-modal-title">
+            Nova cena
+          </h2>
+        </div>
+
+        <button
+          class="modal__close"
+          type="button"
+          data-close-scene-modal
+          aria-label="Fechar formulário"
+        >
+          ×
+        </button>
+      </header>
+
+
+      <!-- =================================================
+           FORMULÁRIO
+           ================================================= -->
+
+      <form id="scene-form" class="scene-form">
+        <input
+          id="scene-id"
+          type="hidden"
+        >
+
+
+        <!-- ===============================================
+             IDENTIFICAÇÃO
+             =============================================== -->
+
+        <fieldset class="form-group">
+          <legend>Identificação</legend>
+
+          <div class="form-grid form-grid--two">
+            <div class="field">
+              <label for="scene-title">
+                TÍTULO VISÍVEL
+              </label>
+
+              <input
+                id="scene-title"
+                type="text"
+                maxlength="150"
+                placeholder="Ex.: A Porta Vermelha"
+              >
+
+              <small>
+                É o título que aparecerá para o jogador.
+              </small>
+            </div>
+
+            <div class="field">
+              <label for="scene-key">
+                IDENTIFICADOR INTERNO *
+              </label>
+
+              <input
+                id="scene-key"
+                type="text"
+                maxlength="100"
+                required
+                placeholder="porta_vermelha"
+              >
+
+              <small>
+                Use letras minúsculas, números e sublinhados.
+              </small>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="scene-description">
+              DESCRIÇÃO ADMINISTRATIVA
+            </label>
+
+            <textarea
+              id="scene-description"
+              rows="3"
+              maxlength="1000"
+              placeholder="Explique para que esta cena serve..."
+            ></textarea>
+
+            <small>
+              Este texto não aparece para os jogadores.
+            </small>
+          </div>
+        </fieldset>
+
+
+        <!-- ===============================================
+             ROTA E FUNCIONAMENTO
+             =============================================== -->
+
+        <fieldset class="form-group">
+          <legend>Rota e funcionamento</legend>
+
+          <div class="form-grid form-grid--two">
+            <div class="field">
+              <label for="scene-route">
+                ROTA
+              </label>
+
+              <select id="scene-route">
+                <option value="">
+                  Todas as rotas / Sem rota específica
+                </option>
+              </select>
+
+              <small>
+                Uma cena sem rota pode ser utilizada por
+                qualquer caminho.
+              </small>
+            </div>
+
+            <div class="field">
+              <label for="scene-fallback">
+                RESPOSTA NÃO RECONHECIDA
+              </label>
+
+              <input
+                id="scene-fallback"
+                type="text"
+                maxlength="500"
+                placeholder="Não parece possível fazer isso agora."
+              >
+
+              <small>
+                Se ficar vazio, será usada a resposta geral do jogo.
+              </small>
+            </div>
+          </div>
+        </fieldset>
+
+
+        <!-- ===============================================
+             AJUDA
+             =============================================== -->
+
+        <fieldset class="form-group">
+          <legend>Comando AJUDA</legend>
+
+          <div class="form-grid form-grid--two">
+            <div class="field">
+              <label for="scene-help-mode">
+                COMPORTAMENTO
+              </label>
+
+              <select id="scene-help-mode">
+                <option value="normal">
+                  Normal
+                </option>
+
+                <option value="custom">
+                  Resposta personalizada
+                </option>
+
+                <option value="silent">
+                  Não responde
+                </option>
+
+                <option value="disabled">
+                  Responde como ação inválida
+                </option>
+              </select>
+            </div>
+
+            <div
+              id="help-text-field"
+              class="field"
+            >
+              <label for="scene-help-text">
+                TEXTO DA AJUDA
+              </label>
+
+              <input
+                id="scene-help-text"
+                type="text"
+                maxlength="500"
+                placeholder="Digite ações simples..."
+              >
+            </div>
+          </div>
+
+          <div class="help-mode-explanation">
+            <p data-help-explanation="normal">
+              <strong>Normal:</strong>
+              mostra uma orientação geral ou o texto cadastrado.
+            </p>
+
+            <p
+              class="is-hidden"
+              data-help-explanation="custom"
+            >
+              <strong>Personalizada:</strong>
+              mostra exatamente o texto cadastrado.
+            </p>
+
+            <p
+              class="is-hidden"
+              data-help-explanation="silent"
+            >
+              <strong>Não responde:</strong>
+              nada acontece quando o jogador digita AJUDA.
+            </p>
+
+            <p
+              class="is-hidden"
+              data-help-explanation="disabled"
+            >
+              <strong>Desativada:</strong>
+              o jogo apresenta a resposta de ação inválida.
+            </p>
+          </div>
+        </fieldset>
+
+
+        <!-- ===============================================
+             COMANDOS DISPONÍVEIS
+             =============================================== -->
+
+        <fieldset class="form-group">
+          <legend>Comandos disponíveis</legend>
+
+          <div class="toggle-grid">
+            <label class="toggle-option">
+              <input
+                id="allow-repeat"
+                type="checkbox"
+                checked
+              >
+
+              <span class="toggle-option__control"></span>
+
+              <span>
+                <strong>REPETIR</strong>
+                <small>Permite mostrar novamente a cena.</small>
+              </span>
+            </label>
+
+            <label class="toggle-option">
+              <input
+                id="allow-inventory"
+                type="checkbox"
+                checked
+              >
+
+              <span class="toggle-option__control"></span>
+
+              <span>
+                <strong>INVENTÁRIO</strong>
+                <small>Permite consultar os itens.</small>
+              </span>
+            </label>
+
+            <label class="toggle-option">
+              <input
+                id="allow-history"
+                type="checkbox"
+                checked
+              >
+
+              <span class="toggle-option__control"></span>
+
+              <span>
+                <strong>HISTÓRICO</strong>
+                <small>Permite consultar as ações anteriores.</small>
+              </span>
+            </label>
+
+            <label class="toggle-option">
+              <input
+                id="allow-map"
+                type="checkbox"
+              >
+
+              <span class="toggle-option__control"></span>
+
+              <span>
+                <strong>MAPA</strong>
+                <small>Permite abrir o mapa nesta cena.</small>
+              </span>
+            </label>
+          </div>
+        </fieldset>
+
+
+        <!-- ===============================================
+             FINAL E PUBLICAÇÃO
+             =============================================== -->
+
+        <fieldset class="form-group">
+          <legend>Estado da cena</legend>
+
+          <div class="toggle-grid">
+            <label class="toggle-option">
+              <input
+                id="scene-enabled"
+                type="checkbox"
+                checked
+              >
+
+              <span class="toggle-option__control"></span>
+
+              <span>
+                <strong>CENA ATIVA</strong>
+                <small>
+                  Cenas desativadas não ficam disponíveis no jogo.
+                </small>
+              </span>
+            </label>
+
+            <label class="toggle-option">
+              <input
+                id="scene-ending"
+                type="checkbox"
+              >
+
+              <span class="toggle-option__control"></span>
+
+              <span>
+                <strong>CENA FINAL</strong>
+                <small>
+                  Marca a cena como um encerramento.
+                </small>
+              </span>
+            </label>
+          </div>
+
+          <div
+            id="ending-type-field"
+            class="field ending-type-field is-hidden"
+          >
+            <label for="scene-ending-type">
+              TIPO DE FINAL
+            </label>
+
+            <select id="scene-ending-type">
+              <option value="neutral">
+                Neutro
+              </option>
+
+              <option value="victory">
+                Vitória
+              </option>
+
+              <option value="defeat">
+                Derrota
+              </option>
+
+              <option value="secret">
+                Secreto
+              </option>
+            </select>
+          </div>
+        </fieldset>
+
+
+        <!-- ===============================================
+             MENSAGEM
+             =============================================== -->
+
+        <p
+          id="scene-form-message"
+          class="form-message"
+          aria-live="polite"
+        ></p>
+
+
+        <!-- ===============================================
+             AÇÕES
+             =============================================== -->
+
+        <footer class="form-actions">
+          <button
+            class="button button--secondary"
+            type="button"
+            data-close-scene-modal
+          >
+            CANCELAR
+          </button>
+
+          <button
+            id="save-scene-button"
+            class="button button--primary"
+            type="submit"
+          >
+            SALVAR CENA
+          </button>
+        </footer>
+      </form>
+    </section>
+  </div>
+
+
+  <!-- =====================================================
+       MENU DE AÇÕES DA CENA
+       ===================================================== -->
+
+  <div
+    id="scene-actions-modal"
+    class="modal is-hidden"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="scene-actions-title"
+  >
+    <div
+      class="modal__backdrop"
+      data-close-actions-modal
+    ></div>
+
+    <section class="modal__panel modal__panel--small">
+      <header class="modal__header">
+        <div>
+          <p class="modal__eyebrow">
+            AÇÕES DA CENA
+          </p>
+
+          <h2 id="scene-actions-title">
+            Cena
+          </h2>
+        </div>
+
+        <button
+          class="modal__close"
+          type="button"
+          data-close-actions-modal
+          aria-label="Fechar"
+        >
+          ×
+        </button>
+      </header>
+
+      <div class="scene-actions">
+        <button
+          id="duplicate-scene-button"
+          type="button"
+        >
+          <strong>DUPLICAR CENA</strong>
+
+          <span>
+            Cria uma nova cena usando estas configurações.
+          </span>
+        </button>
+
+        <button
+          id="toggle-scene-button"
+          type="button"
+        >
+          <strong>DESATIVAR CENA</strong>
+
+          <span>
+            Impede temporariamente o uso no jogo.
+          </span>
+        </button>
+      </div>
+    </section>
+  </div>
+
+<!-- =====================================================
+     MODAL DE CONTEÚDO DA CENA
+     ===================================================== -->
+
+<div
+  id="blocks-modal"
+  class="modal is-hidden"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="blocks-modal-title"
+>
+  <div
+    class="modal__backdrop"
+    data-close-blocks-modal
+  ></div>
+
+  <section class="modal__panel modal__panel--blocks">
+    <header class="modal__header">
+      <div>
+        <p class="modal__eyebrow">
+          CONTEÚDO NARRATIVO
+        </p>
+
+        <h2 id="blocks-modal-title">
+          Conteúdo da cena
+        </h2>
+
+        <p
+          id="blocks-scene-identifier"
+          class="modal__subtitle"
+        ></p>
+      </div>
+
+      <button
+        class="modal__close"
+        type="button"
+        data-close-blocks-modal
+        aria-label="Fechar editor de conteúdo"
+      >
+        ×
+      </button>
+    </header>
+
+    <div class="blocks-toolbar">
+      <div>
+        <strong id="blocks-total">
+          0 blocos
+        </strong>
+
+        <span>
+          A ordem abaixo será a ordem mostrada no jogo.
+        </span>
+      </div>
+
+      <button
+        id="new-block-button"
+        class="button button--primary"
+        type="button"
+      >
+        + NOVO BLOCO
+      </button>
+    </div>
+
+    <p
+      id="blocks-message"
+      class="scene-list-message"
+      aria-live="polite"
+    ></p>
+
+    <div id="blocks-list" class="blocks-list">
+      <!-- Criado pelo JavaScript. -->
+    </div>
+  </section>
+</div>
+
+
+<!-- =====================================================
+     MODAL DE CRIAÇÃO E EDIÇÃO DO BLOCO
+     ===================================================== -->
+
+<div
+  id="block-form-modal"
+  class="modal is-hidden"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="block-form-title"
+>
+  <div
+    class="modal__backdrop"
+    data-close-block-form
+  ></div>
+
+  <section class="modal__panel modal__panel--block-form">
+    <header class="modal__header">
+      <div>
+        <p class="modal__eyebrow">
+          ELEMENTO DA CENA
+        </p>
+
+        <h2 id="block-form-title">
+          Novo bloco
+        </h2>
+      </div>
+
+      <button
+        class="modal__close"
+        type="button"
+        data-close-block-form
+        aria-label="Fechar formulário"
+      >
+        ×
+      </button>
+    </header>
+
+    <form id="block-form" class="scene-form">
+      <input id="block-id" type="hidden">
+
+      <fieldset class="form-group">
+        <legend>Tipo de conteúdo</legend>
+
+        <div class="form-grid form-grid--two">
+          <div class="field">
+            <label for="block-type">
+              TIPO *
+            </label>
+
+            <select id="block-type" required>
+              <option value="text">
+                Texto narrativo
+              </option>
+
+              <option value="title">
+                Título intermediário
+              </option>
+
+              <option value="system_message">
+                Mensagem do sistema
+              </option>
+
+              <option value="image">
+                Imagem
+              </option>
+
+              <option value="pixel_art">
+                Pixel art
+              </option>
+
+              <option value="ascii">
+                Arte ASCII
+              </option>
+
+              <option value="divider">
+                Divisor
+              </option>
+
+              <option value="audio">
+                Áudio
+              </option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="block-animation">
+              EFEITO DE ENTRADA
+            </label>
+
+            <select id="block-animation">
+              <option value="none">
+                Nenhum
+              </option>
+
+              <option value="fade">
+                Aparecer suavemente
+              </option>
+
+              <option value="typing">
+                Digitação
+              </option>
+
+              <option value="glitch">
+                Falha / Glitch
+              </option>
+
+              <option value="blink">
+                Piscar
+              </option>
+
+              <option value="line_reveal">
+                Revelar por linhas
+              </option>
+            </select>
+          </div>
+        </div>
+      </fieldset>
+
+
+      <fieldset
+        id="block-content-group"
+        class="form-group"
+      >
+        <legend>Conteúdo</legend>
+
+        <div
+          id="block-text-field"
+          class="field"
+        >
+          <label for="block-content">
+            TEXTO
+          </label>
+
+          <textarea
+            id="block-content"
+            rows="8"
+            maxlength="10000"
+            placeholder="Escreva o conteúdo..."
+          ></textarea>
+
+          <small id="block-content-help">
+            O texto será mostrado exatamente como foi escrito.
+          </small>
+        </div>
+
+       <div
+  id="block-media-field"
+  class="field is-hidden"
+>
+  <label for="block-media-url">
+    MÍDIA
+  </label>
+
+  <div class="media-source-actions">
+    <button
+      id="upload-media-button"
+      class="button button--secondary"
+      type="button"
+    >
+      ENVIAR ARQUIVO
+    </button>
+
+    <button
+      id="open-media-library-button"
+      class="button button--secondary"
+      type="button"
+    >
+      ABRIR BIBLIOTECA
+    </button>
+  </div>
+
+  <input
+    id="media-file-input"
+    type="file"
+    hidden
+    accept="
+      image/png,
+      image/jpeg,
+      image/webp,
+      image/gif,
+      audio/mpeg,
+      audio/ogg,
+      audio/wav,
+      audio/mp4
+    "
+  >
+
+  <div
+    id="media-upload-status"
+    class="media-upload-status is-hidden"
+  >
+    <div class="media-upload-status__heading">
+      <span id="media-upload-name">
+        Preparando arquivo...
+      </span>
+
+      <strong id="media-upload-percentage">
+        0%
+      </strong>
+    </div>
+
+    <div class="media-upload-status__track">
+      <span id="media-upload-progress"></span>
+    </div>
+
+    <p id="media-upload-message"></p>
+  </div>
+
+  <label for="block-media-url">
+    ENDEREÇO DO ARQUIVO
+  </label>
+
+  <input
+    id="block-media-url"
+    type="url"
+    maxlength="2000"
+    placeholder="https://..."
+  >
+
+  <small>
+    O endereço será preenchido automaticamente após
+    o envio ou a seleção na biblioteca.
+  </small>
+</div>
+
+        <div
+          id="block-alt-field"
+          class="field is-hidden"
+        >
+          <label for="block-alt-text">
+            DESCRIÇÃO DA IMAGEM
+          </label>
+
+          <input
+            id="block-alt-text"
+            type="text"
+            maxlength="500"
+            placeholder="Ex.: Quarto escuro com uma janela aberta"
+          >
+
+          <small>
+            Importante para acessibilidade e para casos
+            em que a imagem não carregar.
+          </small>
+        </div>
+      </fieldset>
+
+
+      <fieldset
+        id="block-appearance-group"
+        class="form-group"
+      >
+        <legend>Aparência</legend>
+
+        <div class="form-grid form-grid--two">
+          <div class="field">
+            <label for="block-text-color">
+              COR DO TEXTO
+            </label>
+
+            <div class="color-field">
+              <input
+                id="block-color-picker"
+                type="color"
+                value="#e8e8e8"
+              >
+
+              <input
+                id="block-text-color"
+                type="text"
+                maxlength="20"
+                placeholder="#e8e8e8"
+              >
+            </div>
+
+            <small>
+              Deixe o campo de texto vazio para usar a cor da rota.
+            </small>
+          </div>
+
+          <div class="field">
+            <label for="block-enabled">
+              ESTADO
+            </label>
+
+            <label class="toggle-option toggle-option--compact">
+              <input
+                id="block-enabled"
+                type="checkbox"
+                checked
+              >
+
+              <span class="toggle-option__control"></span>
+
+              <span>
+                <strong>BLOCO ATIVO</strong>
+
+                <small>
+                  Blocos desativados não aparecem para o jogador.
+                </small>
+              </span>
+            </label>
+          </div>
+        </div>
+      </fieldset>
+
+
+      <fieldset class="form-group">
+        <legend>Pré-visualização</legend>
+
+        <div
+          id="block-preview"
+          class="block-preview"
+        >
+          <p class="block-preview__placeholder">
+            A pré-visualização aparecerá aqui.
+          </p>
+        </div>
+      </fieldset>
+
+      <p
+        id="block-form-message"
+        class="form-message"
+        aria-live="polite"
+      ></p>
+
+      <footer class="form-actions">
+        <button
+          class="button button--secondary"
+          type="button"
+          data-close-block-form
+        >
+          CANCELAR
+        </button>
+
+        <button
+          id="save-block-button"
+          class="button button--primary"
+          type="submit"
+        >
+          SALVAR BLOCO
+        </button>
+      </footer>
+    </form>
+  </section>
+</div>
+
+
+<!-- =====================================================
+     TEMPLATE DO CARTÃO DE BLOCO
+     ===================================================== -->
+
+<template id="block-card-template">
+  <article class="block-card">
+    <div class="block-card__order">
+      <button
+        type="button"
+        data-block-action="up"
+        title="Mover para cima"
+        aria-label="Mover bloco para cima"
+      >
+        ↑
+      </button>
+
+      <span class="block-card__position">
+        01
+      </span>
+
+      <button
+        type="button"
+        data-block-action="down"
+        title="Mover para baixo"
+        aria-label="Mover bloco para baixo"
+      >
+        ↓
+      </button>
+    </div>
+
+    <div class="block-card__content">
+      <header class="block-card__header">
+        <div>
+          <span class="block-card__type">
+            TEXTO
+          </span>
+
+          <span class="block-card__animation">
+            SEM ANIMAÇÃO
+          </span>
+        </div>
+
+        <span class="block-card__state">
+          ATIVO
+        </span>
+      </header>
+
+      <div class="block-card__preview"></div>
+    </div>
+
+    <div class="block-card__actions">
+      <button
+        class="button button--secondary"
+        type="button"
+        data-block-action="edit"
+      >
+        EDITAR
+      </button>
+
+      <button
+        class="button button--icon"
+        type="button"
+        data-block-action="duplicate"
+        title="Duplicar bloco"
+        aria-label="Duplicar bloco"
+      >
+        ⧉
+      </button>
+
+      <button
+        class="button button--icon"
+        type="button"
+        data-block-action="toggle"
+        title="Ativar ou desativar"
+        aria-label="Ativar ou desativar bloco"
+      >
+        ◉
+      </button>
+
+      <button
+        class="button button--icon button--danger"
+        type="button"
+        data-block-action="delete"
+        title="Excluir bloco"
+        aria-label="Excluir bloco"
+      >
+        ×
+      </button>
+    </div>
+  </article>
+</template>
+
+  <!-- =====================================================
+     BIBLIOTECA DE MÍDIAS
+     ===================================================== -->
+
+<div
+  id="media-library-modal"
+  class="modal is-hidden"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="media-library-title"
+>
+  <div
+    class="modal__backdrop"
+    data-close-media-library
+  ></div>
+
+  <section class="modal__panel modal__panel--media">
+    <header class="modal__header">
+      <div>
+        <p class="modal__eyebrow">
+          SUPABASE STORAGE
+        </p>
+
+        <h2 id="media-library-title">
+          Biblioteca de mídias
+        </h2>
+
+        <p class="modal__subtitle">
+          Escolha um arquivo já enviado ou envie um novo.
+        </p>
+      </div>
+
+      <button
+        class="modal__close"
+        type="button"
+        data-close-media-library
+        aria-label="Fechar biblioteca"
+      >
+        ×
+      </button>
+    </header>
+
+    <div class="media-library-toolbar">
+      <div class="field media-library-toolbar__search">
+        <label for="media-library-search">
+          PESQUISAR
+        </label>
+
+        <input
+          id="media-library-search"
+          type="search"
+          placeholder="Nome do arquivo..."
+          autocomplete="off"
+        >
+      </div>
+
+      <div class="field">
+        <label for="media-library-type">
+          TIPO
+        </label>
+
+        <select id="media-library-type">
+          <option value="">
+            Todos
+          </option>
+
+          <option value="image">
+            Imagens
+          </option>
+
+          <option value="pixel_art">
+            Pixel arts
+          </option>
+
+          <option value="gif">
+            GIFs
+          </option>
+
+          <option value="audio">
+            Áudios
+          </option>
+        </select>
+      </div>
+
+      <button
+        id="media-library-upload-button"
+        class="button button--primary"
+        type="button"
+      >
+        + ENVIAR ARQUIVO
+      </button>
+    </div>
+
+    <div class="media-library-summary">
+      <span id="media-library-count">
+        0 arquivos
+      </span>
+
+      <p
+        id="media-library-message"
+        aria-live="polite"
+      ></p>
+    </div>
+
+    <div
+      id="media-library-list"
+      class="media-library-list"
+    ></div>
+  </section>
+</div>
+
+
+<!-- =====================================================
+     TEMPLATE DE MÍDIA
+     ===================================================== -->
+
+<template id="media-card-template">
+  <article class="media-card">
+    <div class="media-card__preview"></div>
+
+    <div class="media-card__content">
+      <span class="media-card__type"></span>
+
+      <h3 class="media-card__name"></h3>
+
+      <p class="media-card__details"></p>
+    </div>
+
+    <div class="media-card__actions">
+      <button
+        class="button button--primary"
+        type="button"
+        data-media-action="select"
+      >
+        USAR
+      </button>
+
+      <button
+        class="button button--icon"
+        type="button"
+        data-media-action="copy"
+        title="Copiar endereço"
+        aria-label="Copiar endereço"
+      >
+        ⧉
+      </button>
+
+      <button
+        class="button button--icon button--danger"
+        type="button"
+        data-media-action="delete"
+        title="Excluir arquivo"
+        aria-label="Excluir arquivo"
+      >
+        ×
+      </button>
+    </div>
+  </article>
+</template>
+
+  <!-- =====================================================
+     MODAL DE CAMINHO E RESPOSTA
+     ===================================================== -->
+
+<div
+  id="response-modal"
+  class="modal is-hidden"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="response-modal-title"
+>
+  <div
+    class="modal__backdrop"
+    data-close-response-modal
+  ></div>
+
+  <section class="modal__panel modal__panel--large">
+    <header class="modal__header">
+      <div>
+        <p class="modal__eyebrow">
+          INTERPRETAÇÃO DE COMANDO
+        </p>
+
+        <h2 id="response-modal-title">
+          Novo caminho
+        </h2>
+      </div>
+
+      <button
+        class="modal__close"
+        type="button"
+        data-close-response-modal
+        aria-label="Fechar formulário"
+      >
+        ×
+      </button>
+    </header>
+
+
+    <form
+      id="response-form"
+      class="scene-form"
+    >
+      <input
+        id="response-id"
+        type="hidden"
+      >
+
+
+      <!-- ===============================================
+           IDENTIFICAÇÃO
+           =============================================== -->
+
+      <fieldset class="form-group">
+        <legend>Identificação</legend>
+
+        <div class="form-grid form-grid--two">
+          <div class="field">
+            <label for="response-key">
+              IDENTIFICADOR INTERNO *
+            </label>
+
+            <input
+              id="response-key"
+              type="text"
+              maxlength="100"
+              required
+              placeholder="examinar_porta"
+            >
+
+            <small>
+              Use letras minúsculas, números e sublinhados.
+            </small>
+          </div>
+
+          <div class="field">
+            <label for="response-source-scene">
+              CENA DE ORIGEM *
+            </label>
+
+            <select
+              id="response-source-scene"
+              required
+            >
+              <option value="">
+                Selecione uma cena
+              </option>
+            </select>
+
+            <small>
+              O comando funcionará apenas nesta cena.
+            </small>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="response-description">
+            DESCRIÇÃO ADMINISTRATIVA
+          </label>
+
+          <textarea
+            id="response-description"
+            rows="3"
+            maxlength="1000"
+            placeholder="Explique quando este caminho deve ser usado..."
+          ></textarea>
+        </div>
+      </fieldset>
+
+
+      <!-- ===============================================
+           RECONHECIMENTO
+           =============================================== -->
+
+      <fieldset class="form-group">
+        <legend>Reconhecimento do comando</legend>
+
+        <div class="field">
+          <label for="response-match-mode">
+            FORMA DE RECONHECIMENTO
+          </label>
+
+          <select id="response-match-mode">
+            <option value="exact">
+              Frase exata
+            </option>
+
+            <option value="keywords">
+              Combinação de palavras
+            </option>
+
+            <option value="any_keyword">
+              Qualquer palavra cadastrada
+            </option>
+          </select>
+        </div>
+
+
+        <!-- FRASE EXATA -->
+
+        <div
+          id="exact-phrase-field"
+          class="field response-mode-field"
+        >
+          <label for="response-exact-phrase">
+            FRASE EXATA *
+          </label>
+
+          <input
+            id="response-exact-phrase"
+            type="text"
+            maxlength="500"
+            placeholder="abrir porta vermelha"
+          >
+
+          <small>
+            O comando precisa corresponder a essa frase.
+            Maiúsculas e acentos são ignorados.
+          </small>
+        </div>
+
+
+        <!-- PALAVRAS -->
+
+        <div
+          id="keyword-fields"
+          class="response-mode-field is-hidden"
+        >
+          <div class="form-grid form-grid--two">
+            <div class="field">
+              <label for="response-required-words">
+                PALAVRAS OBRIGATÓRIAS
+              </label>
+
+              <textarea
+                id="response-required-words"
+                rows="4"
+                placeholder="porta, vermelha"
+              ></textarea>
+
+              <small>
+                Separe as palavras com vírgulas ou quebras de linha.
+              </small>
+            </div>
+
+            <div class="field">
+              <label for="response-optional-words">
+                PALAVRAS OPCIONAIS
+              </label>
+
+              <textarea
+                id="response-optional-words"
+                rows="4"
+                placeholder="abrir, examinar, olhar"
+              ></textarea>
+
+              <small>
+                Ajudam a reconhecer variações do comando.
+              </small>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="response-forbidden-words">
+              PALAVRAS PROIBIDAS
+            </label>
+
+            <textarea
+              id="response-forbidden-words"
+              rows="3"
+              placeholder="arrombar, destruir"
+            ></textarea>
+
+            <small>
+              Caso uma delas apareça, este caminho não será usado.
+            </small>
+          </div>
+        </div>
+
+
+        <!-- SINÔNIMOS -->
+
+        <div
+          id="response-synonyms-field"
+          class="field"
+        >
+          <label for="response-synonyms">
+            GRUPOS DE SINÔNIMOS
+          </label>
+
+          <textarea
+            id="response-synonyms"
+            rows="6"
+            placeholder="examinar = olhar, observar, investigar&#10;porta = entrada, passagem"
+          ></textarea>
+
+          <small>
+            Use um grupo por linha. Exemplo:
+            palavra = sinônimo, sinônimo.
+          </small>
+        </div>
+      </fieldset>
+
+
+      <!-- ===============================================
+           RESPOSTA
+           =============================================== -->
+
+      <fieldset class="form-group">
+        <legend>Resposta ao jogador</legend>
+
+        <div class="field">
+          <label for="response-text">
+            TEXTO DA RESPOSTA
+          </label>
+
+          <textarea
+            id="response-text"
+            rows="6"
+            maxlength="5000"
+            placeholder="A porta está trancada por dentro."
+          ></textarea>
+
+          <small>
+            Pode ficar vazio quando a ação apenas muda de cena.
+          </small>
+        </div>
+      </fieldset>
+
+
+      <!-- ===============================================
+           DESTINO
+           =============================================== -->
+
+      <fieldset class="form-group">
+        <legend>Destino da ação</legend>
+
+        <div class="form-grid form-grid--two">
+          <div class="field">
+            <label for="response-target-scene">
+              CENA DE DESTINO
+            </label>
+
+            <select id="response-target-scene">
+              <option value="">
+                Permanecer na cena atual
+              </option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="response-target-route">
+              ALTERAR ROTA
+            </label>
+
+            <select id="response-target-route">
+              <option value="">
+                Manter a rota atual
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="response-destination-summary">
+          <span>RESULTADO DA AÇÃO</span>
+
+          <p id="response-destination-preview">
+            O jogador permanecerá na cena e na rota atuais.
+          </p>
+        </div>
+      </fieldset>
+
+      <!-- ===============================================
+     ITENS E INVENTÁRIO
+     =============================================== -->
+
+<fieldset class="form-group">
+  <legend>Itens e inventário</legend>
+
+  <p class="form-group__description">
+    Configure objetos exigidos, entregues ou removidos
+    quando este Caminho for utilizado.
+  </p>
+
+
+  <!-- =============================================
+       ITEM EXIGIDO
+       ============================================= -->
+
+  <div class="field">
+    <label for="response-required-item">
+      ITEM EXIGIDO
+    </label>
+
+    <select id="response-required-item">
+      <option value="">
+        Nenhum item exigido
+      </option>
+    </select>
+
+    <small>
+      O jogador só poderá utilizar este Caminho
+      quando possuir o Item selecionado.
+    </small>
+  </div>
+
+
+  <div
+    id="response-missing-item-field"
+    class="field is-hidden"
+  >
+    <label for="response-missing-item-text">
+      RESPOSTA QUANDO O ITEM ESTIVER AUSENTE
+    </label>
+
+    <textarea
+      id="response-missing-item-text"
+      rows="3"
+      maxlength="1000"
+      placeholder="Ex.: Você precisa encontrar uma chave para abrir esta porta."
+    ></textarea>
+
+    <small>
+      Esta mensagem aparece quando o comando corresponde
+      ao Caminho, mas o jogador não possui o Item exigido.
+    </small>
+  </div>
+
+
+  <!-- =============================================
+       CONSUMIR ITEM EXIGIDO
+       ============================================= -->
+
+  <label
+    id="response-consume-required-item-option"
+    class="toggle-option is-hidden"
+  >
+    <input
+      id="response-consume-required-item"
+      type="checkbox"
+    >
+
+    <span class="toggle-option__control"></span>
+
+    <span>
+      <strong>CONSUMIR O ITEM EXIGIDO</strong>
+
+      <small>
+        Remove uma unidade do Item depois que
+        o Caminho for executado.
+      </small>
+    </span>
+  </label>
+
+
+  <!-- =============================================
+       ITEM ENTREGUE
+       ============================================= -->
+
+  <div class="field">
+    <label for="response-give-item">
+      ENTREGAR ITEM
+    </label>
+
+    <select id="response-give-item">
+      <option value="">
+        Não entregar nenhum item
+      </option>
+    </select>
+
+    <small>
+      O jogador receberá o Item selecionado
+      ao executar este Caminho.
+    </small>
+  </div>
+
+
+  <div
+    id="response-give-item-quantity-field"
+    class="field is-hidden"
+  >
+    <label for="response-give-item-quantity">
+      QUANTIDADE ENTREGUE
+    </label>
+
+    <input
+      id="response-give-item-quantity"
+      type="number"
+      min="1"
+      max="999"
+      step="1"
+      value="1"
+    >
+
+    <small>
+      Para Itens não empilháveis, a quantidade
+      permanecerá igual a 1.
+    </small>
+  </div>
+
+
+  <!-- =============================================
+       ITEM REMOVIDO
+       ============================================= -->
+
+  <div class="field">
+    <label for="response-remove-item">
+      REMOVER ITEM
+    </label>
+
+    <select id="response-remove-item">
+      <option value="">
+        Não remover nenhum item
+      </option>
+    </select>
+
+    <small>
+      Remove o Item selecionado do inventário
+      depois que o Caminho for executado.
+    </small>
+  </div>
+
+
+  <div
+    id="response-remove-item-quantity-field"
+    class="field is-hidden"
+  >
+    <label for="response-remove-item-quantity">
+      QUANTIDADE REMOVIDA
+    </label>
+
+    <input
+      id="response-remove-item-quantity"
+      type="number"
+      min="1"
+      max="999"
+      step="1"
+      value="1"
+    >
+
+    <small>
+      Define quantas unidades serão retiradas
+      do inventário do jogador.
+    </small>
+  </div>
+</fieldset>
+
+      <!-- ===============================================
+           PRIORIDADE E ESTADO
+           =============================================== -->
+
+      <fieldset class="form-group">
+        <legend>Prioridade e publicação</legend>
+
+        <div class="form-grid form-grid--two">
+          <div class="field">
+            <label for="response-priority">
+              PRIORIDADE
+            </label>
+
+            <input
+              id="response-priority"
+              type="number"
+              min="-10000"
+              max="10000"
+              step="1"
+              value="100"
+            >
+
+            <small>
+              Números maiores são verificados primeiro.
+              Frases exatas normalmente usam prioridade alta.
+            </small>
+          </div>
+
+          <div class="field">
+            <label for="response-enabled">
+              ESTADO
+            </label>
+
+            <label class="toggle-option toggle-option--compact">
+              <input
+                id="response-enabled"
+                type="checkbox"
+                checked
+              >
+
+              <span class="toggle-option__control"></span>
+
+              <span>
+                <strong>CAMINHO ATIVO</strong>
+
+                <small>
+                  Caminhos desativados são ignorados pelo jogo.
+                </small>
+              </span>
+            </label>
+          </div>
+        </div>
+      </fieldset>
+
+
+      <!-- ===============================================
+           TESTADOR
+           =============================================== -->
+
+      <fieldset class="form-group">
+        <legend>Teste rápido</legend>
+
+        <div class="response-tester">
+          <div class="field">
+            <label for="response-test-input">
+              COMANDO DE TESTE
+            </label>
+
+            <input
+              id="response-test-input"
+              type="text"
+              placeholder="Digite como se fosse o jogador..."
+              autocomplete="off"
+            >
+          </div>
+
+          <div
+            id="response-test-result"
+            class="response-test-result"
+          >
+            Digite um comando para verificar se ele
+            corresponde às regras acima.
+          </div>
+        </div>
+      </fieldset>
+
+
+
+      <fieldset class="form-group">
+        <legend>Condições e consequências avançadas</legend>
+
+        <p class="help-mode-explanation">
+          Estes campos são usados pelo Runtime definitivo. A interface
+          visual será sincronizada pelo JavaScript; o JSON permanece
+          disponível para configurações avançadas.
+        </p>
+
+        <div class="form-grid form-grid--two">
+          <div class="field">
+            <label for="response-condition-rules">
+              CONDIÇÕES EM JSON
+            </label>
+
+            <textarea
+              id="response-condition-rules"
+              rows="10"
+              spellcheck="false"
+              placeholder='[]'
+            ></textarea>
+
+            <small>
+              Define Flags, Itens, Rotas, Segredos, locais e outras
+              exigências para o Caminho ficar disponível.
+            </small>
+          </div>
+
+          <div class="field">
+            <label for="response-effect-rules">
+              CONSEQUÊNCIAS EM JSON
+            </label>
+
+            <textarea
+              id="response-effect-rules"
+              rows="10"
+              spellcheck="false"
+              placeholder='[]'
+            ></textarea>
+
+            <small>
+              Define alterações de Cena, Rota, Itens, Flags, Segredos,
+              Mapa e reinício narrativo.
+            </small>
+          </div>
+        </div>
+
+        <div class="advanced-rule-actions">
+          <button
+            id="format-condition-rules-button"
+            class="button button--secondary"
+            type="button"
+          >
+            FORMATAR CONDIÇÕES
+          </button>
+
+          <button
+            id="format-effect-rules-button"
+            class="button button--secondary"
+            type="button"
+          >
+            FORMATAR CONSEQUÊNCIAS
+          </button>
+
+          <button
+            id="open-rule-builder-button"
+            class="button button--secondary"
+            type="button"
+          >
+            CONSTRUTOR VISUAL
+          </button>
+        </div>
+
+        <p
+          id="advanced-rules-message"
+          class="form-message"
+          aria-live="polite"
+        ></p>
+      </fieldset>
+
+
+      <p
+        id="response-form-message"
+        class="form-message"
+        aria-live="polite"
+      ></p>
+
+
+      <footer class="form-actions">
+        <button
+          class="button button--secondary"
+          type="button"
+          data-close-response-modal
+        >
+          CANCELAR
+        </button>
+
+        <button
+          id="save-response-button"
+          class="button button--primary"
+          type="submit"
+        >
+          SALVAR CAMINHO
+        </button>
+      </footer>
+    </form>
+  </section>
+</div>
+
+  <!-- =====================================================
+     AÇÕES DO CAMINHO
+     ===================================================== -->
+
+<div
+  id="response-actions-modal"
+  class="modal is-hidden"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="response-actions-title"
+>
+  <div
+    class="modal__backdrop"
+    data-close-response-actions
+  ></div>
+
+  <section class="modal__panel modal__panel--small">
+    <header class="modal__header">
+      <div>
+        <p class="modal__eyebrow">
+          AÇÕES DO CAMINHO
+        </p>
+
+        <h2 id="response-actions-title">
+          Caminho
+        </h2>
+      </div>
+
+      <button
+        class="modal__close"
+        type="button"
+        data-close-response-actions
+        aria-label="Fechar"
+      >
+        ×
+      </button>
+    </header>
+
+    <div class="scene-actions">
+      <button
+        id="duplicate-response-button"
+        type="button"
+      >
+        <strong>DUPLICAR CAMINHO</strong>
+
+        <span>
+          Cria uma cópia desativada para edição.
+        </span>
+      </button>
+
+      <button
+        id="toggle-response-button"
+        type="button"
+      >
+        <strong>DESATIVAR CAMINHO</strong>
+
+        <span>
+          Impede temporariamente que a regra seja utilizada.
+        </span>
+      </button>
+
+      <button
+        id="delete-response-button"
+        class="scene-action--danger"
+        type="button"
+      >
+        <strong>EXCLUIR CAMINHO</strong>
+
+        <span>
+          Remove permanentemente esta regra.
+        </span>
+      </button>
+    </div>
+  </section>
+</div>
+
+  <!-- =====================================================
+     MODAL DE ROTA
+     ===================================================== -->
+
+<div
+  id="route-modal"
+  class="modal is-hidden"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="route-modal-title"
+>
+  <div
+    class="modal__backdrop"
+    data-close-route-modal
+  ></div>
+
+  <section class="modal__panel modal__panel--large">
+    <header class="modal__header">
+      <div>
+        <p class="modal__eyebrow">
+          CAMINHO NARRATIVO
+        </p>
+
+        <h2 id="route-modal-title">
+          Nova rota
+        </h2>
+      </div>
+
+      <button
+        class="modal__close"
+        type="button"
+        data-close-route-modal
+        aria-label="Fechar formulário"
+      >
+        ×
+      </button>
+    </header>
+
+
+    <form
+      id="route-form"
+      class="scene-form"
+    >
+      <input
+        id="route-id"
+        type="hidden"
+      >
+
+
+      <fieldset class="form-group">
+        <legend>Identificação</legend>
+
+        <div class="form-grid form-grid--two">
+          <div class="field">
+            <label for="route-name">
+              NOME DA ROTA *
+            </label>
+
+            <input
+              id="route-name"
+              type="text"
+              maxlength="150"
+              required
+              placeholder="Ex.: Vermelho"
+            >
+          </div>
+
+          <div class="field">
+            <label for="route-code">
+              CÓDIGO INTERNO *
+            </label>
+
+            <input
+              id="route-code"
+              type="text"
+              maxlength="100"
+              required
+              placeholder="vermelho"
+            >
+
+            <small>
+              Use letras minúsculas, números e sublinhados.
+            </small>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="route-description">
+            DESCRIÇÃO PARA O JOGO
+          </label>
+
+          <textarea
+            id="route-description"
+            rows="3"
+            maxlength="2000"
+            placeholder="Descrição narrativa da rota..."
+          ></textarea>
+        </div>
+
+        <div class="field">
+          <label for="route-admin-description">
+            DESCRIÇÃO ADMINISTRATIVA
+          </label>
+
+          <textarea
+            id="route-admin-description"
+            rows="3"
+            maxlength="2000"
+            placeholder="Explique a função desta rota..."
+          ></textarea>
+        </div>
+      </fieldset>
+
+
+      <fieldset class="form-group">
+        <legend>Início da rota</legend>
+
+        <div class="form-grid form-grid--two">
+          <div class="field">
+            <label for="route-start-scene">
+              CENA INICIAL
+            </label>
+
+            <select id="route-start-scene">
+              <option value="">
+                Nenhuma cena definida
+              </option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="route-display-order">
+              ORDEM NO PAINEL
+            </label>
+
+            <input
+              id="route-display-order"
+              type="number"
+              min="0"
+              max="10000"
+              step="1"
+              value="10"
+            >
+          </div>
+        </div>
+      </fieldset>
+
+
+      <fieldset class="form-group">
+        <legend>Cores da interface</legend>
+
+        <div class="route-color-grid">
+          <div class="field">
+            <label for="route-primary-color">
+              COR PRINCIPAL
+            </label>
+
+            <div class="color-field">
+              <input
+                id="route-primary-picker"
+                type="color"
+                value="#e8e8e8"
+              >
+
+              <input
+                id="route-primary-color"
+                type="text"
+                value="#e8e8e8"
+              >
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="route-secondary-color">
+              COR SECUNDÁRIA
+            </label>
+
+            <div class="color-field">
+              <input
+                id="route-secondary-picker"
+                type="color"
+                value="#8a8a8a"
+              >
+
+              <input
+                id="route-secondary-color"
+                type="text"
+                value="#8a8a8a"
+              >
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="route-background-color">
+              FUNDO DA PÁGINA
+            </label>
+
+            <div class="color-field">
+              <input
+                id="route-background-picker"
+                type="color"
+                value="#030303"
+              >
+
+              <input
+                id="route-background-color"
+                type="text"
+                value="#030303"
+              >
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="route-panel-color">
+              FUNDO DOS PAINÉIS
+            </label>
+
+            <div class="color-field">
+              <input
+                id="route-panel-picker"
+                type="color"
+                value="#0c0c0c"
+              >
+
+              <input
+                id="route-panel-color"
+                type="text"
+                value="#0c0c0c"
+              >
+            </div>
+          </div>
+        </div>
+
+
+        <div class="field">
+          <label for="route-background-image">
+            IMAGEM DE FUNDO
+          </label>
+
+          <input
+            id="route-background-image"
+            type="url"
+            maxlength="2000"
+            placeholder="https://..."
+          >
+
+          <small>
+            Pode utilizar uma imagem enviada na biblioteca de mídias.
+          </small>
+        </div>
+
+
+        <div
+          id="route-preview"
+          class="route-preview"
+        >
+          <span>PRÉ-VISUALIZAÇÃO</span>
+
+          <div class="route-preview__panel">
+            <strong id="route-preview-name">
+              NOME DA ROTA
+            </strong>
+
+            <p>
+              Esta é uma amostra das cores aplicadas ao jogo.
+            </p>
+          </div>
+        </div>
+      </fieldset>
+
+
+      <fieldset class="form-group">
+        <legend>Disponibilidade</legend>
+
+        <div class="toggle-grid">
+          <label class="toggle-option">
+            <input
+              id="route-enabled"
+              type="checkbox"
+              checked
+            >
+
+            <span class="toggle-option__control"></span>
+
+            <span>
+              <strong>ROTA ATIVA</strong>
+
+              <small>
+                Rotas desativadas não podem ser carregadas.
+              </small>
+            </span>
+          </label>
+
+          <label class="toggle-option">
+            <input
+              id="route-secret"
+              type="checkbox"
+            >
+
+            <span class="toggle-option__control"></span>
+
+            <span>
+              <strong>ROTA SECRETA</strong>
+
+              <small>
+                Identifica caminhos escondidos do jogo.
+              </small>
+            </span>
+          </label>
+
+          <label class="toggle-option">
+            <input
+              id="route-initially-available"
+              type="checkbox"
+            >
+
+            <span class="toggle-option__control"></span>
+
+            <span>
+              <strong>DISPONÍVEL INICIALMENTE</strong>
+
+              <small>
+                Pode ser acessada sem desbloqueio prévio.
+              </small>
+            </span>
+          </label>
+        </div>
+      </fieldset>
+
+
+      <p
+        id="route-form-message"
+        class="form-message"
+        aria-live="polite"
+      ></p>
+
+
+      <footer class="form-actions">
+        <button
+          class="button button--secondary"
+          type="button"
+          data-close-route-modal
+        >
+          CANCELAR
+        </button>
+
+        <button
+          id="save-route-button"
+          class="button button--primary"
+          type="submit"
+        >
+          SALVAR ROTA
+        </button>
+      </footer>
+    </form>
+  </section>
+</div>
+
+  <!-- =====================================================
+     AÇÕES DA ROTA
+     ===================================================== -->
+
+<div
+  id="route-actions-modal"
+  class="modal is-hidden"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="route-actions-title"
+>
+  <div
+    class="modal__backdrop"
+    data-close-route-actions
+  ></div>
+
+  <section class="modal__panel modal__panel--small">
+    <header class="modal__header">
+      <div>
+        <p class="modal__eyebrow">
+          AÇÕES DA ROTA
+        </p>
+
+        <h2 id="route-actions-title">
+          Rota
+        </h2>
+      </div>
+
+      <button
+        class="modal__close"
+        type="button"
+        data-close-route-actions
+        aria-label="Fechar"
+      >
+        ×
+      </button>
+    </header>
+
+    <div class="scene-actions">
+      <button
+        id="duplicate-route-button"
+        type="button"
+      >
+        <strong>DUPLICAR ROTA</strong>
+
+        <span>
+          Cria uma cópia desativada desta rota.
+        </span>
+      </button>
+
+      <button
+        id="toggle-route-button"
+        type="button"
+      >
+        <strong>DESATIVAR ROTA</strong>
+
+        <span>
+          Impede temporariamente o uso da rota.
+        </span>
+      </button>
+
+      <button
+        id="delete-route-button"
+        class="scene-action--danger"
+        type="button"
+      >
+        <strong>EXCLUIR ROTA</strong>
+
+        <span>
+          Remove a rota quando ela não estiver sendo utilizada.
+        </span>
+      </button>
+    </div>
+  </section>
+</div>
+
+  <!-- =====================================================
+     MODAL DE ITEM
+     ===================================================== -->
+
+<div
+  id="item-modal"
+  class="modal is-hidden"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="item-modal-title"
+>
+  <div
+    class="modal__backdrop"
+    data-close-item-modal
+  ></div>
+
+  <section class="modal__panel modal__panel--large">
+    <header class="modal__header">
+      <div>
+        <p class="modal__eyebrow">
+          OBJETO DO JOGO
+        </p>
+
+        <h2 id="item-modal-title">
+          Novo item
+        </h2>
+      </div>
+
+      <button
+        class="modal__close"
+        type="button"
+        data-close-item-modal
+        aria-label="Fechar formulário"
+      >
+        ×
+      </button>
+    </header>
+
+
+    <form
+      id="item-form"
+      class="scene-form"
+    >
+      <input
+        id="item-id"
+        type="hidden"
+      >
+
+
+      <!-- ===============================================
+           IDENTIFICAÇÃO
+           =============================================== -->
+
+      <fieldset class="form-group">
+        <legend>Identificação</legend>
+
+        <div class="form-grid form-grid--two">
+          <div class="field">
+            <label for="item-name">
+              NOME DO ITEM *
+            </label>
+
+            <input
+              id="item-name"
+              type="text"
+              maxlength="150"
+              required
+              placeholder="Ex.: Chave enferrujada"
+            >
+
+            <small>
+              Este nome poderá aparecer no inventário do jogador.
+            </small>
+          </div>
+
+          <div class="field">
+            <label for="item-key">
+              IDENTIFICADOR INTERNO *
+            </label>
+
+            <input
+              id="item-key"
+              type="text"
+              maxlength="100"
+              required
+              placeholder="chave_enferrujada"
+            >
+
+            <small>
+              Use letras minúsculas, números e sublinhados.
+            </small>
+          </div>
+        </div>
+
+
+        <div class="form-grid form-grid--two">
+          <div class="field">
+            <label for="item-type">
+              TIPO DO ITEM
+            </label>
+
+            <select id="item-type">
+              <option value="general">
+                Geral
+              </option>
+
+              <option value="key">
+                Chave
+              </option>
+
+              <option value="document">
+                Documento
+              </option>
+
+              <option value="tool">
+                Ferramenta
+              </option>
+
+              <option value="weapon">
+                Arma
+              </option>
+
+              <option value="clue">
+                Pista
+              </option>
+
+              <option value="consumable">
+                Consumível
+              </option>
+
+              <option value="quest">
+                Item de missão
+              </option>
+
+              <option value="secret">
+                Secreto
+              </option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="item-display-order">
+              ORDEM NO PAINEL
+            </label>
+
+            <input
+              id="item-display-order"
+              type="number"
+              min="0"
+              max="10000"
+              step="1"
+              value="10"
+            >
+          </div>
+        </div>
+
+
+        <div class="field">
+          <label for="item-description">
+            DESCRIÇÃO PARA O JOGADOR
+          </label>
+
+          <textarea
+            id="item-description"
+            rows="4"
+            maxlength="3000"
+            placeholder="Ex.: Uma pequena chave coberta por ferrugem."
+          ></textarea>
+
+          <small>
+            Esta descrição poderá aparecer no inventário.
+          </small>
+        </div>
+
+
+        <div class="field">
+          <label for="item-admin-description">
+            DESCRIÇÃO ADMINISTRATIVA
+          </label>
+
+          <textarea
+            id="item-admin-description"
+            rows="3"
+            maxlength="3000"
+            placeholder="Explique para que o item serve na história..."
+          ></textarea>
+
+          <small>
+            Este texto aparece apenas no painel administrativo.
+          </small>
+        </div>
+      </fieldset>
+
+
+      <!-- ===============================================
+           IMAGEM
+           =============================================== -->
+
+      <fieldset class="form-group">
+        <legend>Imagem do item</legend>
+
+        <div class="field">
+          <label for="item-image-url">
+            ENDEREÇO DA IMAGEM
+          </label>
+
+          <input
+            id="item-image-url"
+            type="url"
+            maxlength="2000"
+            placeholder="https://..."
+          >
+
+          <small>
+            A imagem poderá ser selecionada na biblioteca
+            de mídias em uma etapa posterior.
+          </small>
+        </div>
+
+
+        <div
+          id="item-image-preview"
+          class="item-image-preview"
+        >
+          <p>
+            NENHUMA IMAGEM SELECIONADA
+          </p>
+        </div>
+      </fieldset>
+
+
+      <!-- ===============================================
+           MENSAGENS
+           =============================================== -->
+
+      <fieldset class="form-group">
+        <legend>Mensagens do item</legend>
+
+        <div class="field">
+          <label for="item-receive-text">
+            TEXTO AO RECEBER
+          </label>
+
+          <textarea
+            id="item-receive-text"
+            rows="3"
+            maxlength="1000"
+            placeholder="Ex.: Você guardou a chave enferrujada."
+          ></textarea>
+
+          <small>
+            Pode ser mostrado quando o jogador recebe o item.
+          </small>
+        </div>
+
+
+        <div class="field">
+          <label for="item-use-text">
+            TEXTO AO USAR
+          </label>
+
+          <textarea
+            id="item-use-text"
+            rows="3"
+            maxlength="1000"
+            placeholder="Ex.: A chave gira com dificuldade na fechadura."
+          ></textarea>
+
+          <small>
+            Pode ser mostrado quando o item é utilizado.
+          </small>
+        </div>
+      </fieldset>
+
+
+      <!-- ===============================================
+           QUANTIDADE
+           =============================================== -->
+
+      <fieldset class="form-group">
+        <legend>Quantidade e comportamento</legend>
+
+        <div class="form-grid form-grid--two">
+          <div class="field">
+            <label for="item-maximum-quantity">
+              QUANTIDADE MÁXIMA
+            </label>
+
+            <input
+              id="item-maximum-quantity"
+              type="number"
+              min="1"
+              max="999"
+              step="1"
+              value="1"
+            >
+
+            <small>
+              Limite que o jogador poderá carregar.
+            </small>
+          </div>
+
+          <div class="field">
+            <label>
+              COMPORTAMENTO
+            </label>
+
+            <p class="field-description">
+              Defina como o objeto se comporta dentro
+              do inventário.
+            </p>
+          </div>
+        </div>
+
+
+        <div class="toggle-grid">
+          <label class="toggle-option">
+            <input
+              id="item-stackable"
+              type="checkbox"
+            >
+
+            <span class="toggle-option__control"></span>
+
+            <span>
+              <strong>ITEM EMPILHÁVEL</strong>
+
+              <small>
+                Permite carregar mais de uma unidade.
+              </small>
+            </span>
+          </label>
+
+
+          <label class="toggle-option">
+            <input
+              id="item-consumable"
+              type="checkbox"
+            >
+
+            <span class="toggle-option__control"></span>
+
+            <span>
+              <strong>ITEM CONSUMÍVEL</strong>
+
+              <small>
+                Pode ser removido depois de utilizado.
+              </small>
+            </span>
+          </label>
+        </div>
+      </fieldset>
+
+
+      <!-- ===============================================
+           DISPONIBILIDADE
+           =============================================== -->
+
+      <fieldset class="form-group">
+        <legend>Disponibilidade</legend>
+
+        <div class="toggle-grid">
+          <label class="toggle-option">
+            <input
+              id="item-enabled"
+              type="checkbox"
+              checked
+            >
+
+            <span class="toggle-option__control"></span>
+
+            <span>
+              <strong>ITEM ATIVO</strong>
+
+              <small>
+                Itens desativados são ignorados pelo jogo.
+              </small>
+            </span>
+          </label>
+
+
+          <label class="toggle-option">
+            <input
+              id="item-secret"
+              type="checkbox"
+            >
+
+            <span class="toggle-option__control"></span>
+
+            <span>
+              <strong>ITEM SECRETO</strong>
+
+              <small>
+                Identifica objetos escondidos ou especiais.
+              </small>
+            </span>
+          </label>
+        </div>
+      </fieldset>
+
+
+      <!-- ===============================================
+           MENSAGEM DO FORMULÁRIO
+           =============================================== -->
+
+      <p
+        id="item-form-message"
+        class="form-message"
+        aria-live="polite"
+      ></p>
+
+
+      <!-- ===============================================
+           AÇÕES DO FORMULÁRIO
+           =============================================== -->
+
+      <footer class="form-actions">
+        <button
+          class="button button--secondary"
+          type="button"
+          data-close-item-modal
+        >
+          CANCELAR
+        </button>
+
+        <button
+          id="save-item-button"
+          class="button button--primary"
+          type="submit"
+        >
+          SALVAR ITEM
+        </button>
+      </footer>
+    </form>
+  </section>
+</div>
+
+  <!-- =====================================================
+     MENU DE AÇÕES DO ITEM
+     ===================================================== -->
+
+<div
+  id="item-actions-modal"
+  class="modal is-hidden"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="item-actions-title"
+>
+  <div
+    class="modal__backdrop"
+    data-close-item-actions
+  ></div>
+
+  <section class="modal__panel modal__panel--small">
+    <header class="modal__header">
+      <div>
+        <p class="modal__eyebrow">
+          AÇÕES DO ITEM
+        </p>
+
+        <h2 id="item-actions-title">
+          Item
+        </h2>
+      </div>
+
+      <button
+        class="modal__close"
+        type="button"
+        data-close-item-actions
+        aria-label="Fechar"
+      >
+        ×
+      </button>
+    </header>
+
+
+    <div class="scene-actions">
+      <button
+        id="duplicate-item-button"
+        type="button"
+      >
+        <strong>DUPLICAR ITEM</strong>
+
+        <span>
+          Cria uma cópia desativada deste item.
+        </span>
+      </button>
+
+
+      <button
+        id="toggle-item-button"
+        type="button"
+      >
+        <strong>DESATIVAR ITEM</strong>
+
+        <span>
+          Impede temporariamente o uso deste item.
+        </span>
+      </button>
+
+
+      <button
+        id="delete-item-button"
+        class="scene-action--danger"
+        type="button"
+      >
+        <strong>EXCLUIR ITEM</strong>
+
+        <span>
+          Remove o item quando ele não estiver sendo utilizado.
+        </span>
+      </button>
+    </div>
+  </section>
+</div>
+  
+  <!-- =====================================================
+       TEMPLATES
+       ===================================================== -->
+
+  <template id="scene-card-template">
+    <article class="scene-card">
+      <div class="scene-card__main">
+        <div class="scene-card__status-column">
+          <span class="scene-card__status"></span>
+        </div>
+
+        <div class="scene-card__content">
+          <div class="scene-card__heading">
+            <div>
+              <h3 class="scene-card__title"></h3>
+
+              <p class="scene-card__identifier"></p>
+            </div>
+
+            <span class="scene-card__route"></span>
+          </div>
+
+          <p class="scene-card__description"></p>
+
+          <div class="scene-card__metadata">
+            <span data-scene-meta="help"></span>
+            <span data-scene-meta="commands"></span>
+            <span data-scene-meta="ending"></span>
+          </div>
+        </div>
+      </div>
+
+     <div class="scene-card__actions">
+  <button
+    class="button button--secondary"
+    type="button"
+    data-action="content"
+  >
+    CONTEÚDO
+  </button>
+
+  <button
+    class="button button--secondary"
+    type="button"
+    data-action="edit"
+  >
+    EDITAR
+  </button>
+
+  <button
+    class="button button--icon"
+    type="button"
+    data-action="more"
+    aria-label="Mais ações"
+  >
+    •••
+  </button>
+</div>
+    </article>
+  </template>
+
+  <!-- =====================================================
+     TEMPLATE DO ITEM
+     ===================================================== -->
+
+<template id="item-card-template">
+  <article class="item-card">
+    <div class="item-card__image">
+      <span class="item-card__image-placeholder">
+        ITEM
+      </span>
+
+      <img
+        class="item-card__image-element is-hidden"
+        src=""
+        alt=""
+      >
+    </div>
+
+
+    <div class="item-card__content">
+      <header class="item-card__header">
+        <div>
+          <h3 class="item-card__title">
+            Item
+          </h3>
+
+          <p class="item-card__key">
+            item
+          </p>
+        </div>
+
+        <div class="item-card__badges">
+          <span data-item-badge="type"></span>
+
+          <span data-item-badge="secret"></span>
+
+          <span data-item-badge="consumable"></span>
+
+          <span data-item-badge="state"></span>
+        </div>
+      </header>
+
+
+      <p class="item-card__description">
+        Nenhuma descrição cadastrada.
+      </p>
+
+
+      <div class="item-card__details">
+        <span data-item-detail="quantity">
+          MÁXIMO: 1
+        </span>
+
+        <span data-item-detail="stackable">
+          ITEM ÚNICO
+        </span>
+
+        <span data-item-detail="order">
+          ORDEM 10
+        </span>
+      </div>
+    </div>
+
+
+    <div class="item-card__actions">
+      <button
+        class="button button--secondary"
+        type="button"
+        data-item-action="edit"
+      >
+        EDITAR
+      </button>
+
+      <button
+        class="button button--icon"
+        type="button"
+        data-item-action="more"
+        aria-label="Mais ações"
+      >
+        •••
+      </button>
+    </div>
+  </article>
+</template>
+  
+  <!-- =====================================================
+     TEMPLATE DA ROTA
+     ===================================================== -->
+
+<template id="route-card-template">
+  <article class="route-card">
+    <div class="route-card__color"></div>
+
+    <div class="route-card__content">
+      <header class="route-card__header">
+        <div>
+          <h3 class="route-card__title">
+            Rota
+          </h3>
+
+          <p class="route-card__code">
+            codigo
+          </p>
+        </div>
+
+        <div class="route-card__badges">
+          <span data-route-badge="secret"></span>
+          <span data-route-badge="initial"></span>
+          <span data-route-badge="state"></span>
+        </div>
+      </header>
+
+      <p class="route-card__description"></p>
+
+      <div class="route-card__details">
+        <span data-route-detail="scene">
+          SEM CENA INICIAL
+        </span>
+
+        <span data-route-detail="order">
+          ORDEM 10
+        </span>
+      </div>
+
+      <div class="route-card__palette">
+        <span data-route-color="primary"></span>
+        <span data-route-color="secondary"></span>
+        <span data-route-color="background"></span>
+        <span data-route-color="panel"></span>
+      </div>
+    </div>
+
+    <div class="route-card__actions">
+      <button
+        class="button button--secondary"
+        type="button"
+        data-route-action="edit"
+      >
+        EDITAR
+      </button>
+
+      <button
+        class="button button--icon"
+        type="button"
+        data-route-action="more"
+        aria-label="Mais ações"
+      >
+        •••
+      </button>
+    </div>
+  </article>
+</template>
+  
+
+  <!-- =====================================================
+       MODAL DE FLAG
+       ===================================================== -->
+
+  <div id="flag-modal" class="modal is-hidden" role="dialog" aria-modal="true" aria-labelledby="flag-modal-title">
+    <div class="modal__backdrop" data-close-flag-modal></div>
+
+    <section class="modal__panel modal__panel--large">
+      <header class="modal__header">
+        <div>
+          <p class="modal__eyebrow">VARIÁVEL NARRATIVA</p>
+          <h2 id="flag-modal-title">Nova Flag</h2>
+        </div>
+
+        <button class="modal__close" type="button" data-close-flag-modal aria-label="Fechar">×</button>
+      </header>
+
+      <form id="flag-form" class="scene-form">
+        <input id="flag-id" type="hidden">
+
+        <fieldset class="form-group">
+          <legend>Identificação</legend>
+
+          <div class="form-grid form-grid--two">
+            <div class="field">
+              <label for="flag-name">NOME *</label>
+              <input id="flag-name" type="text" maxlength="150" required>
+            </div>
+
+            <div class="field">
+              <label for="flag-key">IDENTIFICADOR *</label>
+              <input id="flag-key" type="text" maxlength="100" required placeholder="porta_aberta">
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="flag-description">DESCRIÇÃO ADMINISTRATIVA</label>
+            <textarea id="flag-description" rows="3" maxlength="1000"></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-group">
+          <legend>Valor</legend>
+
+          <div class="form-grid form-grid--two">
+            <div class="field">
+              <label for="flag-value-type">TIPO</label>
+              <select id="flag-value-type">
+                <option value="boolean">Verdadeiro / falso</option>
+                <option value="number">Número</option>
+                <option value="text">Texto</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="flag-default-value">VALOR INICIAL</label>
+              <input id="flag-default-value" type="text">
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-group">
+          <legend>Estado</legend>
+
+          <label class="toggle-option">
+            <input id="flag-enabled" type="checkbox" checked>
+            <span class="toggle-option__control"></span>
+            <span><strong>FLAG ATIVA</strong><small>Disponível para condições e consequências.</small></span>
+          </label>
+        </fieldset>
+
+        <p id="flag-form-message" class="form-message" aria-live="polite"></p>
+
+        <footer class="form-actions">
+          <button class="button button--secondary" type="button" data-close-flag-modal>CANCELAR</button>
+          <button id="save-flag-button" class="button button--primary" type="submit">SALVAR FLAG</button>
+        </footer>
+      </form>
+    </section>
+  </div>
+
+
+  <!-- =====================================================
+       MODAL DE SEGREDO
+       ===================================================== -->
+
+  <div id="secret-modal" class="modal is-hidden" role="dialog" aria-modal="true" aria-labelledby="secret-modal-title">
+    <div class="modal__backdrop" data-close-secret-modal></div>
+
+    <section class="modal__panel modal__panel--large">
+      <header class="modal__header">
+        <div>
+          <p class="modal__eyebrow">DESCOBERTA NARRATIVA</p>
+          <h2 id="secret-modal-title">Novo Segredo</h2>
+        </div>
+
+        <button class="modal__close" type="button" data-close-secret-modal aria-label="Fechar">×</button>
+      </header>
+
+      <form id="secret-form" class="scene-form">
+        <input id="secret-id" type="hidden">
+
+        <fieldset class="form-group">
+          <legend>Identificação</legend>
+
+          <div class="form-grid form-grid--two">
+            <div class="field">
+              <label for="secret-name">NOME *</label>
+              <input id="secret-name" type="text" maxlength="150" required>
+            </div>
+
+            <div class="field">
+              <label for="secret-key">IDENTIFICADOR *</label>
+              <input id="secret-key" type="text" maxlength="100" required>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="secret-description">DESCRIÇÃO</label>
+            <textarea id="secret-description" rows="4" maxlength="2000"></textarea>
+          </div>
+
+          <div class="field">
+            <label for="secret-discovery-text">TEXTO DE DESCOBERTA</label>
+            <textarea id="secret-discovery-text" rows="4" maxlength="3000"></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-group">
+          <legend>Apresentação</legend>
+
+          <div class="form-grid form-grid--two">
+            <div class="field">
+              <label for="secret-type">TIPO</label>
+              <select id="secret-type">
+                <option value="lore">Lore</option>
+                <option value="clue">Pista</option>
+                <option value="route">Rota</option>
+                <option value="character">Personagem</option>
+                <option value="location">Local</option>
+                <option value="special">Especial</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="secret-points">PONTOS</label>
+              <input id="secret-points" type="number" min="0" value="0">
+            </div>
+
+            <div class="field">
+              <label for="secret-image-url">IMAGEM</label>
+              <input id="secret-image-url" type="url">
+            </div>
+
+            <div class="field">
+              <label for="secret-audio-url">ÁUDIO</label>
+              <input id="secret-audio-url" type="url">
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-group">
+          <legend>Estado</legend>
+
+          <div class="toggle-grid">
+            <label class="toggle-option">
+              <input id="secret-enabled" type="checkbox" checked>
+              <span class="toggle-option__control"></span>
+              <span><strong>SEGREDO ATIVO</strong><small>Pode ser descoberto.</small></span>
+            </label>
+
+            <label class="toggle-option">
+              <input id="secret-hidden" type="checkbox" checked>
+              <span class="toggle-option__control"></span>
+              <span><strong>OCULTO ATÉ DESCOBERTA</strong><small>Não aparece antes de ser liberado.</small></span>
+            </label>
+          </div>
+        </fieldset>
+
+        <p id="secret-form-message" class="form-message" aria-live="polite"></p>
+
+        <footer class="form-actions">
+          <button class="button button--secondary" type="button" data-close-secret-modal>CANCELAR</button>
+          <button id="save-secret-button" class="button button--primary" type="submit">SALVAR SEGREDO</button>
+        </footer>
+      </form>
+    </section>
+  </div>
+
+
+  <!-- =====================================================
+       MODAL DE CÓDIGO SECRETO
+       ===================================================== -->
+
+  <div id="secret-code-modal" class="modal is-hidden" role="dialog" aria-modal="true" aria-labelledby="secret-code-modal-title">
+    <div class="modal__backdrop" data-close-secret-code-modal></div>
+
+    <section class="modal__panel modal__panel--large">
+      <header class="modal__header">
+        <div>
+          <p class="modal__eyebrow">COMANDO OCULTO</p>
+          <h2 id="secret-code-modal-title">Novo Código Secreto</h2>
+        </div>
+
+        <button class="modal__close" type="button" data-close-secret-code-modal aria-label="Fechar">×</button>
+      </header>
+
+      <form id="secret-code-form" class="scene-form">
+        <input id="secret-code-id" type="hidden">
+
+        <fieldset class="form-group">
+          <legend>Código</legend>
+
+          <div class="form-grid form-grid--two">
+            <div class="field">
+              <label for="secret-code-value">TEXTO DO CÓDIGO *</label>
+              <input id="secret-code-value" type="text" maxlength="200" required>
+            </div>
+
+            <div class="field">
+              <label for="secret-code-name">NOME ADMINISTRATIVO *</label>
+              <input id="secret-code-name" type="text" maxlength="150" required>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="secret-code-response">RESPOSTA AO JOGADOR</label>
+            <textarea id="secret-code-response" rows="4" maxlength="3000"></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-group">
+          <legend>Consequências</legend>
+
+          <div class="field">
+            <label for="secret-code-effect-rules">CONSEQUÊNCIAS EM JSON</label>
+            <textarea id="secret-code-effect-rules" rows="12" spellcheck="false" placeholder='[]'></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-group">
+          <legend>Comportamento</legend>
+
+          <div class="toggle-grid">
+            <label class="toggle-option">
+              <input id="secret-code-enabled" type="checkbox" checked>
+              <span class="toggle-option__control"></span>
+              <span><strong>CÓDIGO ATIVO</strong><small>Pode ser reconhecido.</small></span>
+            </label>
+
+            <label class="toggle-option">
+              <input id="secret-code-single-use" type="checkbox">
+              <span class="toggle-option__control"></span>
+              <span><strong>USO ÚNICO</strong><small>Cada jogador só poderá ativar uma vez.</small></span>
+            </label>
+
+            <label class="toggle-option">
+              <input id="secret-code-silent" type="checkbox">
+              <span class="toggle-option__control"></span>
+              <span><strong>SEM RESPOSTA VISUAL</strong><small>Executa sem mostrar texto.</small></span>
+            </label>
+          </div>
+        </fieldset>
+
+        <p id="secret-code-form-message" class="form-message" aria-live="polite"></p>
+
+        <footer class="form-actions">
+          <button class="button button--secondary" type="button" data-close-secret-code-modal>CANCELAR</button>
+          <button id="save-secret-code-button" class="button button--primary" type="submit">SALVAR CÓDIGO</button>
+        </footer>
+      </form>
+    </section>
+  </div>
+
+
+  <!-- =====================================================
+       MODAL DE LOCAL DO MAPA
+       ===================================================== -->
+
+  <div id="map-location-modal" class="modal is-hidden" role="dialog" aria-modal="true" aria-labelledby="map-location-modal-title">
+    <div class="modal__backdrop" data-close-map-location-modal></div>
+
+    <section class="modal__panel modal__panel--large">
+      <header class="modal__header">
+        <div>
+          <p class="modal__eyebrow">LOCAL DO MAPA</p>
+          <h2 id="map-location-modal-title">Novo Local</h2>
+        </div>
+
+        <button class="modal__close" type="button" data-close-map-location-modal aria-label="Fechar">×</button>
+      </header>
+
+      <form id="map-location-form" class="scene-form">
+        <input id="map-location-id" type="hidden">
+
+        <fieldset class="form-group">
+          <legend>Identificação</legend>
+
+          <div class="form-grid form-grid--two">
+            <div class="field">
+              <label for="map-location-name">NOME *</label>
+              <input id="map-location-name" type="text" maxlength="150" required>
+            </div>
+
+            <div class="field">
+              <label for="map-location-key">IDENTIFICADOR *</label>
+              <input id="map-location-key" type="text" maxlength="100" required>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="map-location-description">DESCRIÇÃO</label>
+            <textarea id="map-location-description" rows="4" maxlength="2000"></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-group">
+          <legend>Posição e apresentação</legend>
+
+          <div class="form-grid form-grid--two">
+            <div class="field">
+              <label for="map-location-type">TIPO</label>
+              <select id="map-location-type">
+                <option value="location">Local</option>
+                <option value="room">Cômodo</option>
+                <option value="area">Área</option>
+                <option value="building">Prédio</option>
+                <option value="landmark">Ponto de referência</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="map-location-order">ORDEM</label>
+              <input id="map-location-order" type="number" min="0" value="0">
+            </div>
+
+            <div class="field">
+              <label for="map-location-x">POSIÇÃO X</label>
+              <input id="map-location-x" type="number" step="0.01" value="50">
+            </div>
+
+            <div class="field">
+              <label for="map-location-y">POSIÇÃO Y</label>
+              <input id="map-location-y" type="number" step="0.01" value="50">
+            </div>
+
+            <div class="field">
+              <label for="map-location-image-url">IMAGEM</label>
+              <input id="map-location-image-url" type="url">
+            </div>
+
+            <div class="field">
+              <label for="map-location-icon-url">ÍCONE</label>
+              <input id="map-location-icon-url" type="url">
+            </div>
+          </div>
+
+
+          <div class="form-grid form-grid--two">
+            <div class="field">
+              <label for="map-location-scene">CENA PADRÃO DO LOCAL</label>
+              <select id="map-location-scene">
+                <option value="">Sem Cena associada</option>
+              </select>
+              <small>
+                Usada quando a Conexão não possui uma Cena de chegada própria.
+              </small>
+            </div>
+
+            <div class="field">
+              <label for="map-location-route">ROTA DO LOCAL</label>
+              <select id="map-location-route">
+                <option value="">Manter a Rota atual</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-grid form-grid--two">
+            <div class="field">
+              <label for="map-location-ascii-symbol">SÍMBOLO ASCII</label>
+              <input
+                id="map-location-ascii-symbol"
+                type="text"
+                maxlength="20"
+                value="[ ]"
+                placeholder="[H]"
+              >
+            </div>
+
+            <div class="field">
+              <label for="map-location-locked-text">TEXTO DE BLOQUEIO</label>
+              <input
+                id="map-location-locked-text"
+                type="text"
+                maxlength="500"
+                placeholder="A passagem continua fechada."
+              >
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="map-location-ascii-art">ARTE ASCII DO LOCAL</label>
+            <textarea
+              id="map-location-ascii-art"
+              rows="7"
+              maxlength="3000"
+              placeholder="  /\&#10; /  \&#10;| [] |"
+            ></textarea>
+            <small>
+              Aparece dentro do nó no Mapa do jogador.
+            </small>
+          </div>
+
+          <div class="toggle-grid">
+            <label class="toggle-option">
+              <input id="map-location-show-when-locked" type="checkbox" checked>
+              <span class="toggle-option__control"></span>
+              <span>
+                <strong>MOSTRAR MESMO BLOQUEADO</strong>
+                <small>O jogador vê o Local, mas não consegue acessá-lo.</small>
+              </span>
+            </label>
+
+            <label class="toggle-option">
+              <input id="map-location-allow-map-click" type="checkbox" checked>
+              <span class="toggle-option__control"></span>
+              <span>
+                <strong>PERMITIR CLIQUE NO MAPA</strong>
+                <small>O jogador pode selecionar este Local.</small>
+              </span>
+            </label>
+
+            <label class="toggle-option">
+              <input id="map-location-allow-direct-travel" type="checkbox">
+              <span class="toggle-option__control"></span>
+              <span>
+                <strong>PERMITIR VIAGEM DIRETA</strong>
+                <small>Reserva o Local para deslocamentos especiais.</small>
+              </span>
+            </label>
+          </div>
+
+        </fieldset>
+
+        <fieldset class="form-group">
+          <legend>Estado inicial</legend>
+
+          <div class="toggle-grid">
+            <label class="toggle-option">
+              <input id="map-location-enabled" type="checkbox" checked>
+              <span class="toggle-option__control"></span>
+              <span><strong>LOCAL ATIVO</strong><small>Disponível no sistema.</small></span>
+            </label>
+
+            <label class="toggle-option">
+              <input id="map-location-secret" type="checkbox">
+              <span class="toggle-option__control"></span>
+              <span><strong>LOCAL SECRETO</strong><small>Fica oculto até descoberta.</small></span>
+            </label>
+
+            <label class="toggle-option">
+              <input id="map-location-initially-discovered" type="checkbox">
+              <span class="toggle-option__control"></span>
+              <span><strong>DESCOBERTO INICIALMENTE</strong><small>Aparece desde o início.</small></span>
+            </label>
+
+            <label class="toggle-option">
+              <input id="map-location-initially-unlocked" type="checkbox">
+              <span class="toggle-option__control"></span>
+              <span><strong>LIBERADO INICIALMENTE</strong><small>Pode ser acessado desde o início.</small></span>
+            </label>
+          </div>
+        </fieldset>
+
+        <p id="map-location-form-message" class="form-message" aria-live="polite"></p>
+
+        <footer class="form-actions">
+          <button class="button button--secondary" type="button" data-close-map-location-modal>CANCELAR</button>
+          <button id="save-map-location-button" class="button button--primary" type="submit">SALVAR LOCAL</button>
+        </footer>
+      </form>
+    </section>
+  </div>
+
+
+  <!-- =====================================================
+       MODAL DE CONEXÃO DO MAPA
+       ===================================================== -->
+
+  <div id="map-connection-modal" class="modal is-hidden" role="dialog" aria-modal="true" aria-labelledby="map-connection-modal-title">
+    <div class="modal__backdrop" data-close-map-connection-modal></div>
+
+    <section class="modal__panel modal__panel--large">
+      <header class="modal__header">
+        <div>
+          <p class="modal__eyebrow">LIGAÇÃO ENTRE LOCAIS</p>
+          <h2 id="map-connection-modal-title">Nova Conexão</h2>
+        </div>
+
+        <button class="modal__close" type="button" data-close-map-connection-modal aria-label="Fechar">×</button>
+      </header>
+
+      <form id="map-connection-form" class="scene-form">
+        <input id="map-connection-id" type="hidden">
+
+        <fieldset class="form-group">
+          <legend>Identificação</legend>
+
+          <div class="form-grid form-grid--two">
+            <div class="field">
+              <label for="map-connection-name">NOME</label>
+              <input id="map-connection-name" type="text" maxlength="150">
+            </div>
+
+            <div class="field">
+              <label for="map-connection-key">IDENTIFICADOR *</label>
+              <input id="map-connection-key" type="text" maxlength="100" required>
+            </div>
+
+            <div class="field">
+              <label for="map-connection-from">ORIGEM *</label>
+              <select id="map-connection-from" required></select>
+            </div>
+
+            <div class="field">
+              <label for="map-connection-to">DESTINO *</label>
+              <select id="map-connection-to" required></select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="map-connection-description">DESCRIÇÃO</label>
+            <textarea id="map-connection-description" rows="3" maxlength="1500"></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-group">
+          <legend>Textos e comportamento</legend>
+
+          <div class="field">
+            <label for="map-connection-travel-text">TEXTO DE DESLOCAMENTO</label>
+            <textarea id="map-connection-travel-text" rows="3" maxlength="1500"></textarea>
+          </div>
+
+          <div class="field">
+            <label for="map-connection-blocked-text">TEXTO BLOQUEADO</label>
+            <textarea id="map-connection-blocked-text" rows="3" maxlength="1500"></textarea>
+          </div>
+
+
+          <div class="form-grid form-grid--two">
+            <div class="field">
+              <label for="map-connection-forward-scene">
+                CENA DE CHEGADA — ORIGEM → DESTINO
+              </label>
+              <select id="map-connection-forward-scene">
+                <option value="">Usar a Cena padrão do destino</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="map-connection-reverse-scene">
+                CENA DE CHEGADA — DESTINO → ORIGEM
+              </label>
+              <select id="map-connection-reverse-scene">
+                <option value="">Usar a Cena padrão da origem</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="map-connection-command-aliases">
+              COMANDOS DE MOVIMENTAÇÃO
+            </label>
+            <input
+              id="map-connection-command-aliases"
+              type="text"
+              maxlength="1000"
+              placeholder="voltar para sala, ir ao corredor, retornar"
+            >
+            <small>
+              Separe por vírgulas.
+            </small>
+          </div>
+
+          <div class="field">
+            <label for="map-connection-condition-rules">
+              CONDIÇÕES DA PASSAGEM — JSON
+            </label>
+            <textarea
+              id="map-connection-condition-rules"
+              rows="7"
+              placeholder='[{"type":"has_item","item_key":"chave","quantity":1}]'
+            ></textarea>
+          </div>
+
+          <div class="field">
+            <label for="map-connection-effect-rules">
+              CONSEQUÊNCIAS DA VIAGEM — JSON
+            </label>
+            <textarea
+              id="map-connection-effect-rules"
+              rows="7"
+              placeholder="[]"
+            ></textarea>
+          </div>
+
+          <div class="toggle-grid">
+            <label class="toggle-option">
+              <input id="map-connection-allow-map-travel" type="checkbox" checked>
+              <span class="toggle-option__control"></span>
+              <span>
+                <strong>PERMITIR VIAGEM PELO MAPA</strong>
+                <small>Esta Conexão pode ser usada pelo mapa clicável.</small>
+              </span>
+            </label>
+          </div>
+
+          <div class="toggle-grid">
+            <label class="toggle-option">
+              <input id="map-connection-enabled" type="checkbox" checked>
+              <span class="toggle-option__control"></span>
+              <span><strong>CONEXÃO ATIVA</strong><small>Pode ser usada pelo Runtime.</small></span>
+            </label>
+
+            <label class="toggle-option">
+              <input id="map-connection-bidirectional" type="checkbox" checked>
+              <span class="toggle-option__control"></span>
+              <span><strong>BIDIRECIONAL</strong><small>Permite ir e voltar.</small></span>
+            </label>
+
+            <label class="toggle-option">
+              <input id="map-connection-secret" type="checkbox">
+              <span class="toggle-option__control"></span>
+              <span><strong>CONEXÃO SECRETA</strong><small>Oculta até descoberta.</small></span>
+            </label>
+
+            <label class="toggle-option">
+              <input id="map-connection-initially-unlocked" type="checkbox">
+              <span class="toggle-option__control"></span>
+              <span><strong>LIBERADA INICIALMENTE</strong><small>Disponível desde o início.</small></span>
+            </label>
+          </div>
+        </fieldset>
+
+        <p id="map-connection-form-message" class="form-message" aria-live="polite"></p>
+
+        <footer class="form-actions">
+          <button class="button button--secondary" type="button" data-close-map-connection-modal>CANCELAR</button>
+          <button id="save-map-connection-button" class="button button--primary" type="submit">SALVAR CONEXÃO</button>
+        </footer>
+      </form>
+    </section>
+  </div>
+
+
+  <!-- =====================================================
+       MODAL DE PROGRESSO
+       ===================================================== -->
+
+  <div id="progress-detail-modal" class="modal is-hidden" role="dialog" aria-modal="true" aria-labelledby="progress-detail-title">
+    <div class="modal__backdrop" data-close-progress-detail-modal></div>
+
+    <section class="modal__panel modal__panel--large">
+      <header class="modal__header">
+        <div>
+          <p class="modal__eyebrow">PROGRESSO AUTOMÁTICO</p>
+          <h2 id="progress-detail-title">Detalhes do jogador</h2>
+        </div>
+
+        <button class="modal__close" type="button" data-close-progress-detail-modal aria-label="Fechar">×</button>
+      </header>
+
+      <div class="scene-form">
+        <div id="progress-detail-summary" class="detail-summary"></div>
+
+        <div class="test-inspector">
+          <section><h3>Inventário</h3><div id="progress-detail-inventory"></div></section>
+          <section><h3>Flags</h3><div id="progress-detail-flags"></div></section>
+          <section><h3>Rotas</h3><div id="progress-detail-routes"></div></section>
+          <section><h3>Mapa</h3><div id="progress-detail-map"></div></section>
+        </div>
+
+        <p id="progress-detail-message" class="form-message" aria-live="polite"></p>
+
+        <footer class="form-actions">
+          <button class="button button--secondary" type="button" data-close-progress-detail-modal>FECHAR</button>
+          <button id="reset-player-progress-button" class="button button--danger" type="button">
+            REINICIAR PROGRESSO
+          </button>
+        </footer>
+      </div>
+    </section>
+  </div>
+
+
+  <!-- =====================================================
+       MODAL DE CONVERSÃO DE COMANDO
+       ===================================================== -->
+
+  <div id="unrecognized-convert-modal" class="modal is-hidden" role="dialog" aria-modal="true" aria-labelledby="unrecognized-convert-title">
+    <div class="modal__backdrop" data-close-unrecognized-convert-modal></div>
+
+    <section class="modal__panel modal__panel--large">
+      <header class="modal__header">
+        <div>
+          <p class="modal__eyebrow">CRIAR CAMINHO</p>
+          <h2 id="unrecognized-convert-title">Converter comando</h2>
+        </div>
+
+        <button class="modal__close" type="button" data-close-unrecognized-convert-modal aria-label="Fechar">×</button>
+      </header>
+
+      <form id="unrecognized-convert-form" class="scene-form">
+        <input id="unrecognized-convert-id" type="hidden">
+
+        <fieldset class="form-group">
+          <legend>Comando recebido</legend>
+
+          <div class="field">
+            <label for="unrecognized-original-input">COMANDO ORIGINAL</label>
+            <input id="unrecognized-original-input" type="text" disabled>
+          </div>
+
+          <div class="field">
+            <label for="unrecognized-normalized-input">COMANDO NORMALIZADO</label>
+            <input id="unrecognized-normalized-input" type="text" disabled>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-group">
+          <legend>Novo Caminho</legend>
+
+          <div class="form-grid form-grid--two">
+            <div class="field">
+              <label for="unrecognized-target-scene">CENA DE ORIGEM *</label>
+              <select id="unrecognized-target-scene" required></select>
+            </div>
+
+            <div class="field">
+              <label for="unrecognized-response-key">IDENTIFICADOR *</label>
+              <input id="unrecognized-response-key" type="text" maxlength="100" required>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="unrecognized-response-text">RESPOSTA</label>
+            <textarea id="unrecognized-response-text" rows="4" maxlength="3000"></textarea>
+          </div>
+        </fieldset>
+
+        <p id="unrecognized-convert-message" class="form-message" aria-live="polite"></p>
+
+        <footer class="form-actions">
+          <button class="button button--secondary" type="button" data-close-unrecognized-convert-modal>CANCELAR</button>
+          <button id="save-unrecognized-conversion-button" class="button button--primary" type="submit">
+            CRIAR CAMINHO
+          </button>
+        </footer>
+      </form>
+    </section>
+  </div>
+
+
+  <!-- =====================================================
+       CONSTRUTOR VISUAL DE REGRAS
+       ===================================================== -->
+
+  <div id="rule-builder-modal" class="modal is-hidden" role="dialog" aria-modal="true" aria-labelledby="rule-builder-title">
+    <div class="modal__backdrop" data-close-rule-builder-modal></div>
+
+    <section class="modal__panel modal__panel--large">
+      <header class="modal__header">
+        <div>
+          <p class="modal__eyebrow">CONDIÇÕES E CONSEQUÊNCIAS</p>
+          <h2 id="rule-builder-title">Construtor visual</h2>
+        </div>
+
+        <button class="modal__close" type="button" data-close-rule-builder-modal aria-label="Fechar">×</button>
+      </header>
+
+      <div class="scene-form">
+        <div class="rule-builder-tabs">
+          <button id="rule-builder-condition-tab" class="button button--secondary is-active" type="button">
+            CONDIÇÕES
+          </button>
+
+          <button id="rule-builder-effect-tab" class="button button--secondary" type="button">
+            CONSEQUÊNCIAS
+          </button>
+        </div>
+
+        <div id="rule-builder-condition-panel">
+          <div class="form-grid form-grid--two">
+            <div class="field">
+              <label for="rule-condition-type">TIPO</label>
+              <select id="rule-condition-type">
+                <option value="has_item">Possui Item</option>
+                <option value="flag_equals">Flag igual a</option>
+                <option value="route_unlocked">Rota liberada</option>
+                <option value="secret_discovered">Segredo descoberto</option>
+                <option value="location_discovered">Local descoberto</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="rule-condition-reference">REFERÊNCIA</label>
+              <select id="rule-condition-reference"></select>
+            </div>
+
+            <div class="field">
+              <label for="rule-condition-operator">OPERADOR</label>
+              <select id="rule-condition-operator">
+                <option value="equals">Igual</option>
+                <option value="not_equals">Diferente</option>
+                <option value="greater_or_equal">Maior ou igual</option>
+                <option value="less_or_equal">Menor ou igual</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="rule-condition-value">VALOR</label>
+              <input id="rule-condition-value" type="text">
+            </div>
+          </div>
+
+          <button id="add-condition-rule-button" class="button button--primary" type="button">
+            ADICIONAR CONDIÇÃO
+          </button>
+
+          <div id="condition-rule-list" class="rule-list"></div>
+        </div>
+
+        <div id="rule-builder-effect-panel" class="is-hidden">
+          <div class="form-grid form-grid--two">
+            <div class="field">
+              <label for="rule-effect-type">TIPO</label>
+              <select id="rule-effect-type">
+                <option value="give_item">Entregar Item</option>
+                <option value="remove_item">Remover Item</option>
+                <option value="set_flag">Alterar Flag</option>
+                <option value="unlock_route">Liberar Rota</option>
+                <option value="discover_secret">Descobrir Segredo</option>
+                <option value="discover_location">Descobrir Local</option>
+                <option value="move_location">Mover no Mapa</option>
+                <option value="reset_story_progress">Reiniciar história</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="rule-effect-reference">REFERÊNCIA</label>
+              <select id="rule-effect-reference"></select>
+            </div>
+
+            <div class="field">
+              <label for="rule-effect-value">VALOR / QUANTIDADE</label>
+              <input id="rule-effect-value" type="text">
+            </div>
+
+            <div class="field">
+              <label for="rule-effect-text">TEXTO OPCIONAL</label>
+              <input id="rule-effect-text" type="text" maxlength="1000">
+            </div>
+          </div>
+
+          <button id="add-effect-rule-button" class="button button--primary" type="button">
+            ADICIONAR CONSEQUÊNCIA
+          </button>
+
+          <div id="effect-rule-list" class="rule-list"></div>
+        </div>
+
+        <p id="rule-builder-message" class="form-message" aria-live="polite"></p>
+
+        <footer class="form-actions">
+          <button class="button button--secondary" type="button" data-close-rule-builder-modal>CANCELAR</button>
+          <button id="apply-rule-builder-button" class="button button--primary" type="button">
+            APLICAR AO CAMINHO
+          </button>
+        </footer>
+      </div>
+    </section>
+  </div>
+
+
+  <!-- =====================================================
+       TEMPLATES DOS NOVOS MÓDULOS
+       ===================================================== -->
+
+  <template id="entity-card-template">
+    <article class="entity-card">
+      <div class="entity-card__status-column">
+        <span class="entity-card__status"></span>
+      </div>
+
+      <div class="entity-card__content">
+        <header class="entity-card__header">
+          <div>
+            <h3 class="entity-card__title">Registro</h3>
+            <p class="entity-card__identifier">identificador</p>
+          </div>
+
+          <span class="entity-card__badge"></span>
+        </header>
+
+        <p class="entity-card__description"></p>
+        <div class="entity-card__metadata"></div>
+      </div>
+
+      <div class="entity-card__actions">
+        <button class="button button--secondary" type="button" data-entity-action="edit">
+          EDITAR
+        </button>
+
+        <button class="button button--icon" type="button" data-entity-action="more" aria-label="Mais ações">
+          •••
+        </button>
+      </div>
+    </article>
+  </template>
+
+  <template id="history-entry-template">
+    <article class="history-entry">
+      <div class="history-entry__marker"></div>
+
+      <div class="history-entry__content">
+        <header>
+          <strong class="history-entry__type">EVENTO</strong>
+          <time class="history-entry__time"></time>
+        </header>
+
+        <p class="history-entry__player"></p>
+        <p class="history-entry__input"></p>
+        <p class="history-entry__text"></p>
+      </div>
+    </article>
+  </template>
+
+  <template id="validator-result-template">
+    <article class="validator-result">
+      <span class="validator-result__severity">ERRO</span>
+
+      <div>
+        <h3 class="validator-result__title">Problema encontrado</h3>
+        <p class="validator-result__description"></p>
+        <code class="validator-result__reference"></code>
+      </div>
+    </article>
+  </template>
+
+  <!-- =====================================================
+     TEMPLATE DO CAMINHO
+     ===================================================== -->
+
+<template id="response-card-template">
+  <article class="response-card">
+    <div class="response-card__status-column">
+      <span class="response-card__status"></span>
+    </div>
+
+    <div class="response-card__content">
+      <header class="response-card__header">
+        <div>
+          <h3 class="response-card__title">
+            Caminho
+          </h3>
+
+          <p class="response-card__identifier">
+            identificador
+          </p>
+        </div>
+
+        <span class="response-card__priority">
+          PRIORIDADE 100
+        </span>
+      </header>
+
+      <div class="response-card__locations">
+        <span data-response-location="source">
+          ORIGEM
+        </span>
+
+        <strong>→</strong>
+
+        <span data-response-location="target">
+          MESMA CENA
+        </span>
+      </div>
+
+      <p class="response-card__description"></p>
+
+      <div class="response-card__rule">
+        <span class="response-card__mode">
+          FRASE EXATA
+        </span>
+
+        <code class="response-card__matcher">
+          abrir porta
+        </code>
+      </div>
+
+      <blockquote class="response-card__answer">
+        Sem texto de resposta.
+      </blockquote>
+    </div>
+
+    <div class="response-card__actions">
+      <button
+        class="button button--secondary"
+        type="button"
+        data-response-action="edit"
+      >
+        EDITAR
+      </button>
+
+      <button
+        class="button button--icon"
+        type="button"
+        data-response-action="more"
+        aria-label="Mais ações"
+      >
+        •••
+      </button>
+    </div>
+  </article>
+</template>
+
+  <!-- =====================================================
+       SCRIPTS
+       ===================================================== -->
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+  ></script>
+
+  <script src="config.js"></script>
+
+  <script src="admin.js"></script>
+</body>
+</html>
