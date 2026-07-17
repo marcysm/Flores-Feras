@@ -27,7 +27,12 @@ html {
 
 body {
   min-height: 100vh;
+  min-height: 100dvh;
   margin: 0;
+  overflow-x: hidden;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 
   color: var(--text);
   background:
@@ -62,6 +67,31 @@ button {
 
 .is-hidden {
   display: none !important;
+}
+
+::selection {
+  color: var(--route-background);
+  background: var(--route-primary);
+}
+
+html {
+  scrollbar-color:
+    var(--route-secondary)
+    var(--route-background);
+}
+
+img,
+audio {
+  max-width: 100%;
+}
+
+button,
+input {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:disabled {
+  pointer-events: none;
 }
 
 /* ==========================================================
@@ -112,7 +142,10 @@ button {
 .application {
   width: min(1120px, calc(100% - 32px));
   margin: 0 auto;
-  padding: 24px 0 48px;
+  padding:
+    max(24px, env(safe-area-inset-top))
+    0
+    max(48px, env(safe-area-inset-bottom));
 }
 
 /* ==========================================================
@@ -407,6 +440,14 @@ button {
     );
 }
 
+
+.scene-block[type="audio"],
+audio.scene-block {
+  width: 100%;
+  margin: 28px 0;
+  accent-color: var(--route-primary);
+}
+
 .scene-divider {
   width: 100%;
   height: 1px;
@@ -584,6 +625,31 @@ button {
   opacity: 0.4;
 }
 
+
+.command-form__help {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+}
+
+.command-form__input:focus-visible,
+.command-form__send:focus-visible,
+.terminal__menu-button:focus-visible,
+.modal__close:focus-visible,
+.command-list button:focus-visible {
+  outline: 2px solid var(--route-primary);
+  outline-offset: 3px;
+}
+
+.command-form__send:active,
+.terminal__menu-button:active,
+.modal__close:active,
+.command-list button:active {
+  transform: translateY(1px);
+}
+
 /* ==========================================================
    MODAL DE COMANDOS
    ========================================================== */
@@ -611,6 +677,8 @@ button {
 .modal__panel {
   position: relative;
   z-index: 2;
+
+  animation: modal-enter 180ms ease both;
 
   width: min(520px, 100%);
   max-height: calc(100vh - 40px);
@@ -756,6 +824,18 @@ button {
   animation: line-reveal 1000ms ease both;
 }
 
+@keyframes modal-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 @keyframes loading-pulse {
   0%,
   100% {
@@ -898,7 +978,11 @@ button {
     padding:
       18px
       20px
-      28px;
+      max(28px, env(safe-area-inset-bottom));
+  }
+
+  .command-form__help {
+    margin-top: 10px;
   }
 
   .command-form__row {
@@ -909,6 +993,51 @@ button {
     grid-column: 1 / -1;
 
     width: 100%;
+  }
+}
+
+
+@media (max-width: 420px) {
+  .topbar {
+    gap: 12px;
+  }
+
+  .topbar__identity {
+    gap: 9px;
+  }
+
+  .topbar__value {
+    max-width: 128px;
+    font-size: 10px;
+  }
+
+  .terminal__header {
+    gap: 12px;
+  }
+
+  .terminal__archive {
+    max-width: 56%;
+    line-height: 1.4;
+  }
+
+  .terminal__menu-button {
+    padding: 8px 9px;
+    font-size: 9px;
+  }
+
+  .scene-title {
+    margin-bottom: 28px;
+  }
+
+  .modal {
+    padding:
+      max(12px, env(safe-area-inset-top))
+      12px
+      max(12px, env(safe-area-inset-bottom));
+  }
+
+  .modal__panel {
+    padding: 20px;
   }
 }
 
